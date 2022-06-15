@@ -17,5 +17,12 @@
  */
 
 #pragma once
-#include "moolib/scanner/scanner.h"
-#include "moolib/error_handling.h"
+
+typedef struct {
+	char* string;
+	int size;
+	int file_descriptor;
+} Source;
+
+void source_close(Source* sf);
+Source* source_new(const char* file);

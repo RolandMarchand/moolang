@@ -17,5 +17,11 @@
  */
 
 #pragma once
-#include "moolib/scanner/scanner.h"
-#include "moolib/error_handling.h"
+#define SUBSTRING_LENGTH(sbstr) ((int)(sbstr.end - sbstr.start))
+
+typedef struct {
+	char* start;
+	char* end;
+} substring;
+
+void get_substring(char* str, substring sbstr);

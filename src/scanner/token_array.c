@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "moolib/scanner.h"
+#include "moolib/scanner/token_array.h"
 #include <stdlib.h>
 
 void token_array_grow(TokenArray* const ta);

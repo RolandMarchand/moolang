@@ -17,9 +17,7 @@
  */
 
 #pragma once
-
-#define TOKEN_ARRAY_BUFFER_COUNT 64
-#define SUBSTRING_LENGTH(sbstr) ((int)(sbstr.end - sbstr.start))
+#include "moolib/scanner/substring.h"
 
 typedef enum {
 	// Single-character tokens.
@@ -43,34 +41,8 @@ typedef enum {
 } TokenType;
 
 typedef struct {
-	char* start;
-	char* end;
-} substring;
-
-typedef struct {
 	TokenType type;
 	substring lexeme;
 	int line;
 	int column;
 } Token;
-
-typedef struct {
-	Token* array;
-	int size;
-	int count;
-} TokenArray;
-
-typedef struct {
-	char* string;
-	int size;
-	int file_descriptor;
-} Source;
-
-void scanner(const char* filename);
-void source_close(Source* sf);
-Source* source_new(const char* file);
-void token_array_add(TokenArray* const ta, const Token t);
-TokenArray* token_array_init();
-void token_array_del(TokenArray* ta);
-void get_substring(char* str, substring sbstr);
-TokenType get_keyword_type(char* str);

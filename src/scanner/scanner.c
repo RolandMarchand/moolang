@@ -16,8 +16,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "moolib/scanner.h"
+#include "moolib/scanner/scanner.h"
 #include "moolib/error_handling.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -32,29 +33,33 @@ static char* current = 0;
 void scan_tokens(const Source* const src, TokenArray* const ta);
 Token get_token();
 char advance();
+
 Token string();
 Token digit();
 Token identifier();
+
 TokenType get_keyword_type(char* str);
 int is_digit(char c);
 int is_alpha(char c);
 
-void scanner(const char* filename)
+Scan* scan_init(const char* filename)
 {
 	Source* src = source_new(filename);
-	TokenArray* ta = token_array_init();
 	current = src->string;
+	TokenArray* ta = token_array_init();
+
 	scan_tokens(src, ta);
 
-	for (int i = 0; i < ta->count; i++) {
-		substring sbstr = ta->array[i].lexeme;
-		char str[SUBSTRING_LENGTH(sbstr) + 1];
-		get_substring(str, sbstr);
-		printf("%d - %s\n", ta->array[i].line, str);
-	}
+	Scan* s = malloc(sizeof(Scan));
+	*s = (Scan){.source = src, .tokens = ta};
 
-	token_array_del(ta);
-	source_close(src);	
+	return s;
+}
+void scan_del(Scan* s)
+{
+	source_close(s->source);
+	token_array_del(s->tokens);
+	free(s);
 }
 
 void scan_tokens(const Source* const src, TokenArray* const ta)

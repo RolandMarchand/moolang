@@ -17,7 +17,7 @@
  */
 
 #include "moolib/error_handling.h"
-#include "moolib/scanner.h"
+#include "moolib/scanner/scanner.h"
 
 #include <sys/mman.h>
 #include <sys/stat.h>

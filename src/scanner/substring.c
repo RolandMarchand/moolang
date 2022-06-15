@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "moolib/scanner.h"
+#include "moolib/scanner/substring.h"
 
 void get_substring(char* str, substring sbstr)
 {

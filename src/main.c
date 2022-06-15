@@ -22,5 +22,6 @@
 int main(int argc, char** argv)
 {
 	assert(argc == 2);
-	scanner(argv[1]);
+	Scan* s = scan_init(argv[1]);
+	scan_del(s);
 }

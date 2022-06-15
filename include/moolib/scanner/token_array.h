@@ -17,5 +17,16 @@
  */
 
 #pragma once
-#include "moolib/scanner/scanner.h"
-#include "moolib/error_handling.h"
+#include "moolib/scanner/token.h"
+
+#define TOKEN_ARRAY_BUFFER_COUNT 8
+
+typedef struct {
+	Token* array;
+	int size;
+	int count;
+} TokenArray;
+
+void token_array_add(TokenArray* const ta, const Token t);
+TokenArray* token_array_init();
+void token_array_del(TokenArray* ta);
