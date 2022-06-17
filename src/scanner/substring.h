@@ -19,9 +19,9 @@
 #pragma once
 #define SUBSTRING_LENGTH(sbstr) ((int)(sbstr.end - sbstr.start))
 
-typedef struct {
-	char* start;
-	char* end;
-} substring;
+struct substring {
+	char *start;
+	char *end;
+};
 
-void get_substring(char* str, substring sbstr);
+void get_substring(char *str, struct substring sbstr);

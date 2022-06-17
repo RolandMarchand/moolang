@@ -17,12 +17,15 @@
  */
 
 #pragma once
+#include "token_array.h"
+#include "substring.h"
+#include "token.h"
+#include "source.h"
 
-typedef struct {
-	char* string;
-	int size;
-	int file_descriptor;
-} Source;
+struct scan {
+	struct source *source;
+	struct token_array *tokens;
+};
 
-Source* source_new(const char* file);
-void source_close(Source* sf);
+struct scan *scan_init(const char *filename);
+void scan_del(struct scan *s);

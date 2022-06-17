@@ -16,63 +16,62 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "moolib/scanner/scanner.h"
-#include "moolib/error_handling.h"
+#include "scanner.h"
+#include "../error_handling.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#define GET_TOKEN(KEYWORD) (Token){.type=KEYWORD, .lexeme=(substring){.start=start, .end=current}, .line=line}
-#define is_digit(d) (c >= '0' && c <= '9')
-#define is_alpha(c) ((c >= 'A' && c <= 'z') || c == '_')
+#define GET_TOKEN(KEYWORD) (struct token){.type=KEYWORD, .lexeme=(struct substring){.start=start, .end=current}, .line=line}
+#define IS_DIGIT(d) (d >= '0' && d <= '9')
+#define IS_ALPHA(c) ((c >= 'A' && c <= 'z') || c == '_')
 
 static int line = 0;
-static int column = 0; // To remove?
-static char* start = 0;
-static char* current = 0;
+static char *start = 0;
+static char *current = 0;
 
-void scan_tokens(const Source* const src, TokenArray* const ta);
-Token get_token();
+void scan_tokens(const struct source *const src, struct token_array *const ta);
+struct token get_token();
 char advance();
 
-Token string();
-Token digit();
-Token identifier();
+struct token string();
+struct token digit();
+struct token identifier();
 
-TokenType get_keyword_type(char* str);
+TokenType get_keyword_type(char *str);
 
-Scan* scan_init(const char* filename)
+struct scan *scan_init(const char *filename)
 {
-	Source* src = source_new(filename);
+	struct source *src = source_new(filename);
 	current = src->string;
-	TokenArray* ta = token_array_init();
+	struct token_array *ta = token_array_init();
 
 	scan_tokens(src, ta);
 
-	Scan* s = malloc(sizeof(Scan));
-	*s = (Scan){.source = src, .tokens = ta};
+	struct scan *s = malloc(sizeof(struct scan));
+	*s = (struct scan){.source = src, .tokens = ta};
 
 	return s;
 }
 
-void scan_del(Scan* s)
+void scan_del(struct scan *s)
 {
 	source_close(s->source);
 	token_array_del(s->tokens);
 	free(s);
 }
 
-void scan_tokens(const Source* const src, TokenArray* const ta)
+void scan_tokens(const struct source *const src, struct token_array *const ta)
 {
 	while(current[0] != '\0') {
 		start = current;
-		Token t = get_token();
+		struct token t = get_token();
 		token_array_add(ta, t);
 	}
 }
 
-Token get_token()
+struct token get_token()
 {
 	char error[64];
 
@@ -88,7 +87,12 @@ Token get_token()
 	case '+': advance(); return GET_TOKEN(PLUS);
 	case ';': advance(); return GET_TOKEN(SEMICOLON);
 	case '*': advance(); return GET_TOKEN(STAR);
+	case '/': advance(); return GET_TOKEN(SLASH);
 	case '\0': return GET_TOKEN(END_OF_FILE);
+	case '#':
+		advance();
+		while (current[0] != '\n' && current[0] != '\0') advance();
+		return get_token();
 
 		// One or two character tokens.
 	case '!':
@@ -103,13 +107,10 @@ Token get_token()
 	case '<':
 		advance();
 		return advance() == '=' ? GET_TOKEN(LESS_EQUAL) : GET_TOKEN(LESS);
-	case '/':
-		advance();
-		if (current[0] != '/') return GET_TOKEN(SLASH);
-		while (current[0] != '\n' && current[0] != '\0') advance();
-		return get_token();
 
 		// Ignored.
+	case '\n':
+		line++;
 	case ' ':
 	case '\t':
 	case '\f':
@@ -118,19 +119,13 @@ Token get_token()
 		advance();
 		start = current;
 		return get_token();
-	case '\n':
-		advance();
-		start = current;
-		column = 0;
-		line++;
-		return get_token();
 
 		// Literals.
 	case '"': advance(); return string();
 
 	default:
-		if (is_digit(current[0])) return digit();
-		if (is_alpha(current[0])) return identifier();
+		if (IS_DIGIT(current[0])) return digit();
+		if (IS_ALPHA(current[0])) return identifier();
 		sprintf(error, "Line %d: Unexpected character '%c'.", line, current[0]);
 		CHECK_ERROR_AND_PERFORM(1, perror(error););
 	}
@@ -145,40 +140,46 @@ char advance()
 	return current[-1];
 }
 
-Token string()
+struct token string()
 {
 	while (current[0] != '"' && current[0] != '\0') {
 		if (current[0] == '\n') line++;
 		if (current[0] == '\\') advance();
 		advance();
 	}
+	
 	CHECK_ERROR_AND_PERFORM(current[0] == '\0',
 				perror("Unterminated string."););
+	
 	advance();
 	return GET_TOKEN(STRING);
 }
 
-Token digit()
+struct token digit()
 {
-	while (is_digit(current[0])) advance();
+	while (IS_DIGIT(current[0])) advance();
 
-	if (current[0] == '.') {
-		CHECK_ERROR_AND_PERFORM(!is_digit(current[1]), {
-				char err[128];
-				sprintf(err, "Line %d: Unexpected character '%c'. Digit expected.", line + 1, current[1]);
-				perror(err);
-			});
-		while (is_digit(current[0])) advance();
-	}
+	if (current[0] != '.')
+		goto exit_digit;
+	
+	CHECK_ERROR_AND_PERFORM(!IS_DIGIT(current[1]), {
+			char err[128];
+			sprintf(err, "Line %d: Unexpected character '%c'. \
+					Digit expected.", line + 1, current[1]);
+			perror(err);
+		});
+	
+	while (IS_DIGIT(current[0])) advance();
 
+exit_digit:
 	return GET_TOKEN(NUMBER);
 }
 
-Token identifier()
+struct token identifier()
 {
-	while (is_alpha(current[0]) || is_digit(current[0])) advance();
+	while (IS_ALPHA(current[0]) || IS_DIGIT(current[0])) advance();
 
-	substring* sbstr = &(substring){.start=start, .end=current};
+	struct substring *sbstr = &(struct substring){.start=start, .end=current};
 	int s = SUBSTRING_LENGTH((*sbstr)) + 1; // +1 for '\0'
 	char str[s];
 	get_substring(str, *sbstr);
@@ -187,7 +188,7 @@ Token identifier()
 	return GET_TOKEN(t);
 }
 
-TokenType get_keyword_type(char* str)
+TokenType get_keyword_type(char *str)
 {
 #define GET(kwstr, tk) if (strcmp(str, kwstr) == 0) return tk;
 
@@ -207,6 +208,5 @@ TokenType get_keyword_type(char* str)
 	GET("yes", YES);
 
 	return IDENTIFIER;
-		
 #undef GET
 }
