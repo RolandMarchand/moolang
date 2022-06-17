@@ -35,7 +35,7 @@ typedef enum {
 
 	// Keywords.
 	CON, DIS, BLUEPRINT, IF, ELSE, YES, NO, PROCEDURE, WRITE, PRODUCE, ME,
-	WHILE, FLUID, SOLID,
+	WHILE, FLUID, SOLID, NIL,
 
 	END_OF_FILE
 } TokenType;

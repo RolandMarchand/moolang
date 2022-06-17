@@ -199,6 +199,7 @@ TokenType get_keyword_type(char *str)
 	GET("fluid", FLUID);
 	GET("if", IF);
 	GET("me", ME);
+	GET("nil", NIL);
 	GET("no", NO);
 	GET("procedure", PROCEDURE);
 	GET("produce", PRODUCE);
