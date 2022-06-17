@@ -16,9 +16,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "moolib/scanner.h"
+#include "substring.h"
 
-void get_substring(char* str, substring sbstr)
+void get_substring(char *str, struct substring sbstr)
 {
 	for (int i = 0; i < SUBSTRING_LENGTH(sbstr); i++)
 		str[i] = sbstr.start[i];

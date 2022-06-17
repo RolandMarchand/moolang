@@ -16,12 +16,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "scanner/scanner.h"
-#include <assert.h>
+#pragma once
+#define SUBSTRING_LENGTH(sbstr) ((int)(sbstr.end - sbstr.start))
 
-int main(int argc, char *argv[])
-{
-	assert(argc == 2);
-	struct scan* s = scan_init(argv[1]);
-	scan_del(s);
-}
+struct substring {
+	char *start;
+	char *end;
+};
+
+void get_substring(char *str, struct substring sbstr);

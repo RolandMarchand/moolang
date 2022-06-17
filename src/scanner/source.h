@@ -16,12 +16,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "scanner/scanner.h"
-#include <assert.h>
+#pragma once
 
-int main(int argc, char *argv[])
-{
-	assert(argc == 2);
-	struct scan* s = scan_init(argv[1]);
-	scan_del(s);
-}
+struct source {
+	char *string;
+	int size;
+	int file_descriptor;
+};
+
+struct source *source_new(const char *file);
+void source_close(struct source *sf);

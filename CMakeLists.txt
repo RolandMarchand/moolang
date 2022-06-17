@@ -5,7 +5,7 @@ project(MooLang VERSION 0.1
   LANGUAGES C)
 
 add_library(scanner STATIC
-  include/moolib/scanner.h
+  include/moolib/scanner/scanner.h
   src/scanner/scanner.c
   src/scanner/token_array.c
   src/scanner/source.c

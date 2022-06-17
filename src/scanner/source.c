@@ -16,8 +16,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "moolib/error_handling.h"
-#include "moolib/scanner.h"
+#include "scanner.h"
+#include "../error_handling.h"
 
 #include <sys/mman.h>
 #include <sys/stat.h>
@@ -26,7 +26,7 @@
 #include <unistd.h>
 #include <stdio.h>
 
-Source* source_new(const char* file)
+struct source *source_new(const char *file)
 {
 	struct stat sb;
 	CHECK_ERROR_AND_PERFORM(stat(file, &sb) == -1,
@@ -34,10 +34,10 @@ Source* source_new(const char* file)
 		);
 
 	int fd = open(file, O_RDONLY);
-	char* code = mmap(NULL, sb.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
+	char *code = mmap(NULL, sb.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
 
-	Source* sf = malloc(sizeof(Source));
-	*sf = (Source){
+	struct source *sf = malloc(sizeof(struct source));
+	*sf = (struct source){
 		.string = code,
 		.size = sb.st_size,
 		.file_descriptor = fd
@@ -46,7 +46,7 @@ Source* source_new(const char* file)
 	return sf;
 }
 
-void source_close(Source* sf)
+void source_close(struct source *sf)
 {
 	CHECK_ERROR_AND_PERFORM(munmap(sf->string, sf->size) == -1,
 				char i[25];

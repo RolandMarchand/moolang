@@ -16,12 +16,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "scanner/scanner.h"
-#include <assert.h>
+#pragma once
+#include "token.h"
 
-int main(int argc, char *argv[])
-{
-	assert(argc == 2);
-	struct scan* s = scan_init(argv[1]);
-	scan_del(s);
-}
+#define TOKEN_ARRAY_BUFFER_COUNT 8
+
+struct token_array {
+	struct token *array;
+	int size;
+	int count;
+};
+
+struct token_array *token_array_init();
+void token_array_add(struct token_array *const ta, const struct token t);
+void token_array_del(struct token_array *ta);

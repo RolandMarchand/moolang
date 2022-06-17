@@ -16,36 +16,36 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "moolib/scanner.h"
+#include "token_array.h"
 #include <stdlib.h>
 
-void token_array_grow(TokenArray* const ta);
+void token_array_grow(struct token_array *const ta);
 
-TokenArray* token_array_init()
+struct token_array *token_array_init()
 {
-	TokenArray* ta = malloc(sizeof(TokenArray));
+	struct token_array *ta = malloc(sizeof(struct token_array));
 	ta->count = 0;
-	ta->size = TOKEN_ARRAY_BUFFER_COUNT * sizeof(Token);
+	ta->size = TOKEN_ARRAY_BUFFER_COUNT * sizeof(struct token);
 	ta->array = malloc(ta->size);
 
 	return ta;
 }
 
-void token_array_add(TokenArray* const ta, const Token t)
+void token_array_add(struct token_array *const ta, const struct token t)
 {
-	if (ta->count == (ta->size / sizeof(Token)))
+	if (ta->count == (ta->size / sizeof(struct token)))
 		token_array_grow(ta);
 	ta->array[ta->count] = t;
 	ta->count++;
 }
 
-void token_array_grow(TokenArray* const ta)
+void token_array_grow(struct token_array *const ta)
 {
-	ta->size += TOKEN_ARRAY_BUFFER_COUNT * sizeof(Token);
+	ta->size += TOKEN_ARRAY_BUFFER_COUNT * sizeof(struct token);
 	ta->array = realloc(ta->array, ta->size);
 }
 
-void token_array_del(TokenArray* ta)
+void token_array_del(struct token_array *ta)
 {
 	free(ta->array);
 	free(ta);

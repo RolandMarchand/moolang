@@ -17,5 +17,15 @@
  */
 
 #pragma once
-#include "moolib/scanner.h"
-#include "moolib/error_handling.h"
+#include "token_array.h"
+#include "substring.h"
+#include "token.h"
+#include "source.h"
+
+struct scan {
+	struct source *source;
+	struct token_array *tokens;
+};
+
+struct scan *scan_init(const char *filename);
+void scan_del(struct scan *s);
