@@ -24,6 +24,8 @@
 #include <string.h>
 
 #define GET_TOKEN(KEYWORD) (Token){.type=KEYWORD, .lexeme=(substring){.start=start, .end=current}, .line=line}
+#define is_digit(d) (c >= '0' && c <= '9')
+#define is_alpha(c) ((c >= 'A' && c <= 'z') || c == '_')
 
 static int line = 0;
 static int column = 0; // To remove?
@@ -39,8 +41,6 @@ Token digit();
 Token identifier();
 
 TokenType get_keyword_type(char* str);
-int is_digit(char c);
-int is_alpha(char c);
 
 Scan* scan_init(const char* filename)
 {
@@ -55,6 +55,7 @@ Scan* scan_init(const char* filename)
 
 	return s;
 }
+
 void scan_del(Scan* s)
 {
 	source_close(s->source);
@@ -101,7 +102,7 @@ Token get_token()
 		return advance() == '=' ? GET_TOKEN(GREATER_EQUAL) : GET_TOKEN(GREATER);
 	case '<':
 		advance();
-		return advance() ? GET_TOKEN(LESS_EQUAL) : GET_TOKEN(LESS);
+		return advance() == '=' ? GET_TOKEN(LESS_EQUAL) : GET_TOKEN(LESS);
 	case '/':
 		advance();
 		if (current[0] != '/') return GET_TOKEN(SLASH);
@@ -209,14 +210,3 @@ TokenType get_keyword_type(char* str)
 		
 #undef GET
 }
-
-int is_digit(char c)
-{
-	return (c >= '0' && c <= '9');
-}
-
-int is_alpha(char c)
-{
-	return (c >= 'A' && c <= 'z') || c == '_';
-}
-
