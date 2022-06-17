@@ -1,4 +1,4 @@
-#include "scanner/scanner.h"
+#include "../scanner/scanner.h"
 
 typedef struct AstNode {
 	TokenType type;
