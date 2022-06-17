@@ -41,8 +41,8 @@ typedef enum {
 } TokenType;
 
 typedef struct {
-	TokenType type;
 	substring lexeme;
+	TokenType type;
 	int line;
 	int column;
 } Token;

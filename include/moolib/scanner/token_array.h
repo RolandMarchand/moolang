@@ -27,6 +27,6 @@ typedef struct {
 	int count;
 } TokenArray;
 
-void token_array_add(TokenArray* const ta, const Token t);
 TokenArray* token_array_init();
+void token_array_add(TokenArray* const ta, const Token t);
 void token_array_del(TokenArray* ta);
