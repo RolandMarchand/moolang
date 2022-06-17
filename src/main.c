@@ -16,12 +16,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "moolib.h"
+#include "scanner/scanner.h"
 #include <assert.h>
 
-int main(int argc, char** argv)
+int main(int argc, char *argv[])
 {
 	assert(argc == 2);
-	Scan* s = scan_init(argv[1]);
+	struct scan* s = scan_init(argv[1]);
 	scan_del(s);
 }

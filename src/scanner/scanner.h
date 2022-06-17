@@ -17,11 +17,15 @@
  */
 
 #pragma once
-#define SUBSTRING_LENGTH(sbstr) ((int)(sbstr.end - sbstr.start))
+#include "token_array.h"
+#include "substring.h"
+#include "token.h"
+#include "source.h"
 
-typedef struct {
-	char* start;
-	char* end;
-} substring;
+struct scan {
+	struct source *source;
+	struct token_array *tokens;
+};
 
-void get_substring(char* str, substring sbstr);
+struct scan *scan_init(const char *filename);
+void scan_del(struct scan *s);

@@ -17,15 +17,12 @@
  */
 
 #pragma once
-#include "moolib/scanner/token_array.h"
-#include "moolib/scanner/substring.h"
-#include "moolib/scanner/token.h"
-#include "moolib/scanner/source.h"
 
-typedef struct {
-	Source* source;
-	TokenArray* tokens;
-} Scan;
+struct source {
+	char *string;
+	int size;
+	int file_descriptor;
+};
 
-Scan* scan_init(const char* filename);
-void scan_del(Scan* s);
+struct source *source_new(const char *file);
+void source_close(struct source *sf);

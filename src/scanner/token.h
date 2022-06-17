@@ -17,7 +17,7 @@
  */
 
 #pragma once
-#include "moolib/scanner/substring.h"
+#include "substring.h"
 
 typedef enum {
 	// Single-character tokens.
@@ -40,9 +40,9 @@ typedef enum {
 	END_OF_FILE
 } TokenType;
 
-typedef struct {
+struct token {
+	struct substring lexeme;
 	TokenType type;
-	substring lexeme;
 	int line;
 	int column;
-} Token;
+};
