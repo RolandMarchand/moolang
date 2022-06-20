@@ -1,3 +1,22 @@
+/* 
+ * Moolang, a programming language.
+ * Copyright (C) 2022 moowool195@gmail.com
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+#include "parser.h"
 #include "scanner/scanner.h"
 #include "error_handling.h"
 
@@ -9,15 +28,10 @@
 #define TOKEN_IS(s_token, ...) __TOKEN_IS__(s_token,			\
 					    (TokenType[]){__VA_ARGS__, -1})
 
+static struct token_array tokens;
 
-struct expression {
-	struct token operator;
-	struct expression* left;
-	struct expression* right;
-};
-
-static int __TOKEN_IS__(struct token *tok, TokenType type[]);
 static struct token advance();
+
 static struct expression *expression();
 static struct expression *equality();
 static struct expression *comparison();
@@ -25,9 +39,10 @@ static struct expression *term();
 static struct expression *factor();
 static struct expression *unary();
 static struct expression *primary();
-void error(struct token t, char* message);
 
-static struct token_array tokens;
+static int __TOKEN_IS__(struct token *tok, TokenType type[]);
+
+// TODO: remove
 #include <string.h>
 void treecpy(char* str, int *offset, struct expression *e)
 {
@@ -214,11 +229,6 @@ static struct expression *primary()
 
 	CHECK_ERROR_AND_PERFORM(1, perror("Expression not found."););
 }
-
-void error(struct token t, char* message)
-{
-	
-}	
 
 static int __TOKEN_IS__(struct token *tok, TokenType type[])
 {
