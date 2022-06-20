@@ -18,11 +18,13 @@
 
 #include "scanner/scanner.h"
 #include "parser/parser.h"
-#include <assert.h>
+#include "error/error.h"
 
 int main(int argc, char *argv[])
 {
-	assert(argc == 2);
+	if (argc != 2) {
+		ERR_WRONG_ARGS_COUNT(argc, 2);
+	}
 	struct scan *s = scan_init(argv[1]);
 	parse(s);
 	scan_del(s);

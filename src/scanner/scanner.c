@@ -17,7 +17,7 @@
  */
 
 #include "scanner.h"
-#include "../error_handling.h"
+#include "error/error.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -50,6 +50,11 @@ struct scan *scan_init(const char *filename)
 	scan_tokens(src, ta);
 
 	struct scan *s = malloc(sizeof(struct scan));
+
+	if (s == NULL) {
+		FAIL_ALLOC;
+	}
+
 	*s = (struct scan){.source = src, .tokens = ta};
 
 	return s;
@@ -74,8 +79,6 @@ static void scan_tokens(const struct source *const src, \
 
 static struct token get_token()
 {
-	char error[64];
-
 	switch (current[0]) {
 		// Single-character tokens.
 	case '(': advance(); return GET_TOKEN(LEFT_PAREN);
@@ -143,9 +146,7 @@ static struct token get_token()
 	default:
 		if (IS_DIGIT(current[0])) return digit();
 		if (IS_ALPHA(current[0])) return identifier();
-		sprintf(error, "Line %d: Unexpected character '%c'.", \
-			line, current[0]);
-		CHECK_ERROR_AND_PERFORM(1, perror(error););
+		ERR_UNEXPECTED_CHARACTER(line, current[0]);
 	}
 }
 
@@ -166,8 +167,9 @@ static struct token string()
 		advance();
 	}
 	
-	CHECK_ERROR_AND_PERFORM(current[0] == '\0',
-				perror("Unterminated string."););
+	if (current[0] == '\0') {
+		ERR_UNTERMINATED_STRING(line);
+	}
 	
 	advance();
 	return GET_TOKEN(STRING);
@@ -180,12 +182,9 @@ static struct token digit()
 	if (current[0] != '.')
 		goto exit_digit;
 	
-	CHECK_ERROR_AND_PERFORM(!IS_DIGIT(current[1]), {
-			char err[128];
-			sprintf(err, "Line %d: Unexpected character '%c'. \
-Digit expected.", line + 1, current[1]);
-			perror(err);
-		});
+	if (!IS_DIGIT(current[1])) {
+		ERR_UNEXPECTED_CHARACTER(line, current[1]);
+	}
 	
 	while (IS_DIGIT(current[0])) advance();
 

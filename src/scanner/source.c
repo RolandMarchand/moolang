@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "../error_handling.h"
+#include "error/error.h"
 #include "source.h"
 
 #include <sys/mman.h>
@@ -29,16 +29,22 @@
 struct source *source_new(const char *file)
 {
 	struct stat sb;
-	CHECK_ERROR_AND_PERFORM(stat(file, &sb) == -1,
-				perror(file);
-		);
+	if (stat(file, &sb) == -1) {
+		FAIL_OPEN_FILE(file);
+	}
 
 	int fd = open(file, O_RDONLY);
 	char *code = mmap(NULL, sb.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
 
 	struct source *sf = malloc(sizeof(struct source));
+
+	if (sf == NULL) {
+		FAIL_ALLOC;
+	}
+
 	*sf = (struct source){
 		.string = code,
+		.file_name = file,
 		.size = sb.st_size,
 		.file_descriptor = fd
 	};
@@ -48,16 +54,11 @@ struct source *source_new(const char *file)
 
 void source_close(struct source *sf)
 {
-	CHECK_ERROR_AND_PERFORM(munmap(sf->string, sf->size) == -1,
-				char i[25];
-				sprintf(i, "%p", sf->string);
-				perror(i);
-		);
-	CHECK_ERROR_AND_PERFORM(close(sf->file_descriptor) == -1,
-				char i[25];
-				sprintf(i, "%d", sf->file_descriptor);
-				perror(i);
-		);
+	if (munmap(sf->string, sf->size) == -1)
+		FAIL_FREE_FILE(sf->file_name);
+	if (close(sf->file_descriptor) == -1)
+		FAIL_CLOSE_FILE(sf->file_descriptor);
+
 	free(sf);
 	sf = NULL;
 }

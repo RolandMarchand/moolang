@@ -18,14 +18,14 @@
 
 #include "parser.h"
 #include "scanner/scanner.h"
-#include "error_handling.h"
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <error/error.h>
 #include <assert.h>
 
 #define CURRENT_TOKEN &tokens.array[0]
-#define TOKEN_IS(s_token, ...) __TOKEN_IS__(s_token,			\
+#define CURRENT_TOKEN_IS(...) __TOKEN_IS__(CURRENT_TOKEN,			\
 					    (TokenType[]){__VA_ARGS__, -1})
 
 static struct token_array tokens;
@@ -116,11 +116,16 @@ static struct expression *equality()
 {
 	struct expression *expr = comparison();
 
-	while (TOKEN_IS(CURRENT_TOKEN, BANG_EQUAL, EQUAL_EQUAL)) {
+	while (CURRENT_TOKEN_IS(BANG_EQUAL, EQUAL_EQUAL)) {
 		struct token operator = advance();
 		struct expression *right = comparison();
 
 		struct expression *new_expr = malloc(sizeof(struct expression));
+
+		if (new_expr == NULL) {
+			FAIL_ALLOC;
+		}
+
 		*new_expr = (struct expression) {
 			.operator = operator,
 			.left = expr,
@@ -136,12 +141,17 @@ static struct expression *comparison()
 {
 	struct expression *expr = term();
 
-	while (TOKEN_IS(CURRENT_TOKEN, \
+	while (CURRENT_TOKEN_IS(\
 			GREATER, GREATER_EQUAL, LESS, LESS_EQUAL)) {
 		struct token operator = advance();
 		struct expression *right = term();
 
 		struct expression *new_expr = malloc(sizeof(struct expression));
+
+		if (new_expr == NULL) {
+			FAIL_ALLOC;
+		}
+
 		*new_expr = (struct expression) {
 			.operator = operator,
 			.left = expr,
@@ -157,11 +167,16 @@ static struct expression *term()
 {
 	struct expression *expr = factor();
 
-	while (TOKEN_IS(CURRENT_TOKEN, PLUS, MINUS)) {
+	while (CURRENT_TOKEN_IS(PLUS, MINUS)) {
 		struct token operator = advance();
 		struct expression *right = factor();
 
 		struct expression *new_expr = malloc(sizeof(struct expression));
+
+		if (new_expr == NULL) {
+			FAIL_ALLOC;
+		}
+
 		*new_expr = (struct expression) {
 			.operator = operator,
 			.left = expr,
@@ -177,11 +192,16 @@ static struct expression *factor()
 {
 	struct expression *expr = unary();
 
-	while (TOKEN_IS(CURRENT_TOKEN, STAR, SLASH)) {
+	while (CURRENT_TOKEN_IS(STAR, SLASH)) {
 		struct token operator = advance();
 		struct expression *right = unary();
 
 		struct expression *new_expr = malloc(sizeof(struct expression));
+
+		if (new_expr == NULL) {
+			FAIL_ALLOC;
+		}
+
 		*new_expr = (struct expression) {
 			.operator = operator,
 			.left = expr,
@@ -195,16 +215,21 @@ static struct expression *factor()
 
 static struct expression *unary()
 {
-	while (TOKEN_IS(CURRENT_TOKEN, BANG, MINUS)) {
+	while (CURRENT_TOKEN_IS(BANG, MINUS)) {
 		struct token operator = advance();
 		struct expression *right = unary();
 
-		struct expression *expr = malloc(sizeof(struct expression));
-		*expr = (struct expression) {
+		struct expression *new_expr = malloc(sizeof(struct expression));
+
+		if (new_expr == NULL) {
+			FAIL_ALLOC;
+		}
+
+		*new_expr = (struct expression) {
 			.operator = operator,
 			.right = right
 		};
-		return expr;
+		return new_expr;
 	}
 
 	return primary();
@@ -213,21 +238,31 @@ static struct expression *unary()
 static struct expression *primary()
 {
 	struct expression *lit = malloc(sizeof(struct expression));
-	if (TOKEN_IS(CURRENT_TOKEN, YES, NO, NIL, NUMBER, STRING)) {
+
+	if (lit == NULL) {
+		FAIL_ALLOC;
+	}
+
+	if (CURRENT_TOKEN_IS(YES, NO, NIL, NUMBER, STRING)) {
 		lit->operator = advance();
 		return lit;
 	}
 
-	if (TOKEN_IS(CURRENT_TOKEN, LEFT_PAREN)) {
+	if (CURRENT_TOKEN_IS(LEFT_PAREN)) {
 		advance();
 		struct expression *expr = expression();
-		CHECK_ERROR_AND_PERFORM(!TOKEN_IS(CURRENT_TOKEN, RIGHT_PAREN),
-					perror("Expected ')' after expression."););
+
+		if (!CURRENT_TOKEN_IS(RIGHT_PAREN)) {
+			ERR_EXPECTED_CHARACTER(*CURRENT_TOKEN.line,
+					       *CURRENT_TOKEN.lexeme.start[0],
+					       ')');
+		}
+
 		advance();
 		return expr;
 	}
 
-	CHECK_ERROR_AND_PERFORM(1, perror("Expression not found."););
+	ERR_EXPRESSION_NOT_FOUND;
 }
 
 static int __TOKEN_IS__(struct token *tok, TokenType type[])

@@ -20,6 +20,7 @@
 
 struct source {
 	char *string;
+	const char *file_name;
 	int size;
 	int file_descriptor;
 };

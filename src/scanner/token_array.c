@@ -17,6 +17,8 @@
  */
 
 #include "token_array.h"
+#include "error/error.h"
+
 #include <stdlib.h>
 
 static void token_array_grow(struct token_array *const ta);
@@ -24,9 +26,18 @@ static void token_array_grow(struct token_array *const ta);
 struct token_array *token_array_init()
 {
 	struct token_array *ta = malloc(sizeof(struct token_array));
+
+	if (ta == NULL) {
+		FAIL_ALLOC;
+	}
+
 	ta->count = 0;
 	ta->size = TOKEN_ARRAY_BUFFER_COUNT * sizeof(struct token);
 	ta->array = malloc(ta->size);
+
+	if (ta->array == NULL) {
+		FAIL_ALLOC;
+	}
 
 	return ta;
 }
@@ -43,6 +54,10 @@ static void token_array_grow(struct token_array *const ta)
 {
 	ta->size += TOKEN_ARRAY_BUFFER_COUNT * sizeof(struct token);
 	ta->array = realloc(ta->array, ta->size);
+
+	if (ta->array == NULL) {
+		FAIL_ALLOC;
+	}
 }
 
 void token_array_del(struct token_array *ta)
