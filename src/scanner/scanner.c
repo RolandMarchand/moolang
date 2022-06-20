@@ -165,7 +165,7 @@ struct token digit()
 	CHECK_ERROR_AND_PERFORM(!IS_DIGIT(current[1]), {
 			char err[128];
 			sprintf(err, "Line %d: Unexpected character '%c'. \
-					Digit expected.", line + 1, current[1]);
+Digit expected.", line + 1, current[1]);
 			perror(err);
 		});
 	

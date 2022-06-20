@@ -44,5 +44,4 @@ struct token {
 	struct substring lexeme;
 	TokenType type;
 	int line;
-	int column;
 };

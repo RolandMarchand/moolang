@@ -5,14 +5,16 @@ project(MooLang VERSION 0.1
   LANGUAGES C)
 
 add_library(scanner STATIC
-  include/moolib/scanner/scanner.h
   src/scanner/scanner.c
   src/scanner/token_array.c
   src/scanner/source.c
   src/scanner/substring.c)
-target_include_directories(scanner PUBLIC include)
+target_include_directories(scanner PUBLIC src/scanner)
+
+add_library(parser STATIC src/parser/parser.c)
+target_include_directories(parser PUBLIC src/parser)
 
 add_executable(moolang src/main.c)
-target_link_libraries(moolang PUBLIC scanner)
+target_link_libraries(moolang PUBLIC scanner parser)
 
 set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} -g)

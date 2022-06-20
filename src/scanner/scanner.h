@@ -16,6 +16,35 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+/*
+ * The scan struct is the final output of the scannner. It contains the
+ * source code of the program and a dynamic array of tokens.
+ * 
+ * To get the scan struct, call the `scan_init` function.
+ * To delete the scan, call the `scan_del` function. Not doing so will
+ * result in a memory leak.
+ * 
+ * The source is a structure composed of a `string` character array, a
+ * `size` integer and a `file_descriptor`. The source is managed
+ * automatically.
+ * 
+ * The dynamic array of tokens is similar to the source, composed of an
+ * `array` of tokens, a `size` integer measuring the physical size of
+ * the array, and a `count` integer, counting the number of tokens. The
+ * array of tokens is managed automatically.
+ * 
+ * Tokens of the dynamic array are structures being made of their
+ * `type` (TypeToken), the `line` on which they appear in the source
+ * code, and a `lexeme`. The `lexeme` is a custom structure called a
+ * substring.
+ * 
+ * Substrings are composed of two char pointers `start` and `end`
+ * pointing to a section of a string. You can use `get_substring` to
+ * write the contents of a substring in a user-defined character array
+ * of size `SUBSTRING_LENGTH(sbstr) + 1`. There is a
+ * `PRINT_SUBSTRING(sbstr)` macro, to print the substring to STDOUT.
+ */
+
 #pragma once
 #include "token_array.h"
 #include "substring.h"
