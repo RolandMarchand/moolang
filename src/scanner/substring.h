@@ -33,4 +33,4 @@ struct substring {
 	char *end;
 };
 
-void sbstrcpy(const struct substring *from, char *to);
+extern void sbstrcpy(const struct substring *from, char *to);

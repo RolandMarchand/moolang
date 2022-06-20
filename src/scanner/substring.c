@@ -17,7 +17,7 @@
  */
 
 #include "substring.h"
-#include "string.h"
+#include <string.h>
 
 void sbstrcpy(const struct substring *from, char *to)
 {

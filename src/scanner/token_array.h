@@ -27,6 +27,6 @@ struct token_array {
 	int count;
 };
 
-struct token_array *token_array_init();
-void token_array_add(struct token_array *const ta, const struct token t);
-void token_array_del(struct token_array *ta);
+extern struct token_array *token_array_init();
+extern void token_array_add(struct token_array *const ta, const struct token t);
+extern void token_array_del(struct token_array *ta);

@@ -16,8 +16,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "scanner.h"
 #include "../error_handling.h"
+#include "source.h"
 
 #include <sys/mman.h>
 #include <sys/stat.h>

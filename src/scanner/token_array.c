@@ -19,7 +19,7 @@
 #include "token_array.h"
 #include <stdlib.h>
 
-void token_array_grow(struct token_array *const ta);
+static void token_array_grow(struct token_array *const ta);
 
 struct token_array *token_array_init()
 {
@@ -39,7 +39,7 @@ void token_array_add(struct token_array *const ta, const struct token t)
 	ta->count++;
 }
 
-void token_array_grow(struct token_array *const ta)
+static void token_array_grow(struct token_array *const ta)
 {
 	ta->size += TOKEN_ARRAY_BUFFER_COUNT * sizeof(struct token);
 	ta->array = realloc(ta->array, ta->size);

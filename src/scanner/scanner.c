@@ -31,13 +31,13 @@ static int line = 0;
 static char *start = 0;
 static char *current = 0;
 
-void scan_tokens(const struct source *const src, struct token_array *const ta);
-struct token get_token();
-char advance();
+static void scan_tokens(const struct source *const src, struct token_array *const ta);
+static struct token get_token();
+static char advance();
 
-struct token string();
-struct token digit();
-struct token identifier();
+static struct token string();
+static struct token digit();
+static struct token identifier();
 
 TokenType get_keyword_type(char *str);
 
@@ -62,7 +62,8 @@ void scan_del(struct scan *s)
 	free(s);
 }
 
-void scan_tokens(const struct source *const src, struct token_array *const ta)
+static void scan_tokens(const struct source *const src, \
+			struct token_array *const ta)
 {
 	while(current[0] != '\0') {
 		start = current;
@@ -71,7 +72,7 @@ void scan_tokens(const struct source *const src, struct token_array *const ta)
 	}
 }
 
-struct token get_token()
+static struct token get_token()
 {
 	char error[64];
 
@@ -97,16 +98,32 @@ struct token get_token()
 		// One or two character tokens.
 	case '!':
 		advance();
-		return advance() == '=' ? GET_TOKEN(BANG_EQUAL) : GET_TOKEN(BANG);
+		if (current[0] == '=') {
+			advance();
+			return GET_TOKEN(BANG_EQUAL);
+		}
+		return GET_TOKEN(BANG);
 	case '=':
 		advance();
-		return advance() == '=' ? GET_TOKEN(EQUAL_EQUAL) : GET_TOKEN(EQUAL);
+		if (current[0] == '=') {
+			advance();
+			return GET_TOKEN(EQUAL_EQUAL);
+		}
+		return GET_TOKEN(EQUAL);
 	case '>':
 		advance();
-		return advance() == '=' ? GET_TOKEN(GREATER_EQUAL) : GET_TOKEN(GREATER);
+		if (current[0] == '=') {
+			advance();
+			return GET_TOKEN(GREATER_EQUAL);
+		}
+		return GET_TOKEN(GREATER);
 	case '<':
 		advance();
-		return advance() == '=' ? GET_TOKEN(LESS_EQUAL) : GET_TOKEN(LESS);
+		if (current[0] == '=') {
+			advance();
+			return GET_TOKEN(LESS_EQUAL);
+		}
+		return GET_TOKEN(LESS);
 
 		// Ignored.
 	case '\n':
@@ -126,12 +143,13 @@ struct token get_token()
 	default:
 		if (IS_DIGIT(current[0])) return digit();
 		if (IS_ALPHA(current[0])) return identifier();
-		sprintf(error, "Line %d: Unexpected character '%c'.", line, current[0]);
+		sprintf(error, "Line %d: Unexpected character '%c'.", \
+			line, current[0]);
 		CHECK_ERROR_AND_PERFORM(1, perror(error););
 	}
 }
 
-char advance()
+static char advance()
 {
 	if (current[0] == '\0') return '\0';
 
@@ -140,7 +158,7 @@ char advance()
 	return current[-1];
 }
 
-struct token string()
+static struct token string()
 {
 	while (current[0] != '"' && current[0] != '\0') {
 		if (current[0] == '\n') line++;
@@ -155,7 +173,7 @@ struct token string()
 	return GET_TOKEN(STRING);
 }
 
-struct token digit()
+static struct token digit()
 {
 	while (IS_DIGIT(current[0])) advance();
 
@@ -175,7 +193,7 @@ exit_digit:
 	return GET_TOKEN(NUMBER);
 }
 
-struct token identifier()
+static struct token identifier()
 {
 	while (IS_ALPHA(current[0]) || IS_DIGIT(current[0])) advance();
 

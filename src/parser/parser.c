@@ -1,13 +1,14 @@
-#include "../scanner/scanner.h"
-#include "../error_handling.h"
+#include "scanner/scanner.h"
+#include "error_handling.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
 
-#define TOKEN_IS(s_token, ...) __TOKEN_IS__(s_token, \
-					    (TokenType[]){__VA_ARGS__, -1})
 #define CURRENT_TOKEN &tokens.array[0]
+#define TOKEN_IS(s_token, ...) __TOKEN_IS__(s_token,			\
+					    (TokenType[]){__VA_ARGS__, -1})
+
 
 struct expression {
 	struct token operator;
@@ -15,36 +16,67 @@ struct expression {
 	struct expression* right;
 };
 
-int __TOKEN_IS__(struct token *tok, TokenType type[]);
-struct token advance();
-struct expression *expression();
-struct expression *equality();
-struct expression *comparison();
-struct expression *term();
-struct expression *factor();
-struct expression *unary();
-struct expression *primary();
+static int __TOKEN_IS__(struct token *tok, TokenType type[]);
+static struct token advance();
+static struct expression *expression();
+static struct expression *equality();
+static struct expression *comparison();
+static struct expression *term();
+static struct expression *factor();
+static struct expression *unary();
+static struct expression *primary();
 void error(struct token t, char* message);
 
 static struct token_array tokens;
+#include <string.h>
+void treecpy(char* str, int *offset, struct expression *e)
+{
+#define WRITE_LEXEME							\
+	{								\
+		strncpy(str+*offset, e->operator.lexeme.start,		\
+			SUBSTRING_LENGTH(e->operator.lexeme));		\
+		*offset += SUBSTRING_LENGTH(e->operator.lexeme);	\
+	}
+#define ADD(c)					\
+	{					\
+		str[*offset] = c;		\
+		(*offset)++;			\
+	}
+
+	if (e->left != NULL) {
+		ADD('(');
+		WRITE_LEXEME;
+		ADD(' ');
+		treecpy(str, offset, e->left);
+		ADD(' ');
+		treecpy(str, offset, e->right);
+		ADD(')');
+	} else if (e->right != NULL) {
+		ADD('(');
+		WRITE_LEXEME;
+		treecpy(str, offset, e->right);
+		ADD(')');
+	} else {
+		WRITE_LEXEME;
+	}
+#undef WRITE_LEXEME
+#undef SPACE
+}
 
 void parse(struct scan *s)
 {
 	tokens = *(s->tokens);
 
-	/* for (int i = 0; i < s->tokens->count; i++) { */
-	/* 	struct token *t = &(s->tokens->array[i]); */
-	/* 	if (MATCH(t, PLUS, MINUS, BLUEPRINT)) { */
-	/* 		PRINT_SUBSTRING(t->lexeme); */
-	/* 		printf(" matches.\n"); */
-	/* 	} else { */
-	/* 		PRINT_SUBSTRING(t->lexeme); */
-	/* 		printf(" does not match.\n"); */
-	/* 	} */
-	/* } */
+	struct expression *e = expression();
+	char t[1024];
+	int i = 0;
+	for (int _i = 0; _i < 1024; _i++)
+		t[_i] = '\0';
+	treecpy(t, &i, e);
+	printf("%s\n", t);
 }
 
-struct token advance()
+static struct token advance()
 {
 	assert(tokens.count > 0);
 	
@@ -60,12 +92,12 @@ struct token advance()
 	return t;
 }
 
-struct expression *expression()
+static struct expression *expression()
 {
 	return equality();
 }
 
-struct expression *equality()
+static struct expression *equality()
 {
 	struct expression *expr = comparison();
 
@@ -85,7 +117,7 @@ struct expression *equality()
 	return expr;
 }
 
-struct expression *comparison()
+static struct expression *comparison()
 {
 	struct expression *expr = term();
 
@@ -106,7 +138,7 @@ struct expression *comparison()
 	return expr;
 }
 
-struct expression *term()
+static struct expression *term()
 {
 	struct expression *expr = factor();
 
@@ -126,7 +158,7 @@ struct expression *term()
 	return expr;
 }
 
-struct expression *factor()
+static struct expression *factor()
 {
 	struct expression *expr = unary();
 
@@ -146,7 +178,7 @@ struct expression *factor()
 	return expr;
 }
 
-struct expression *unary()
+static struct expression *unary()
 {
 	while (TOKEN_IS(CURRENT_TOKEN, BANG, MINUS)) {
 		struct token operator = advance();
@@ -163,7 +195,7 @@ struct expression *unary()
 	return primary();
 }
 
-struct expression *primary()
+static struct expression *primary()
 {
 	struct expression *lit = malloc(sizeof(struct expression));
 	if (TOKEN_IS(CURRENT_TOKEN, YES, NO, NIL, NUMBER, STRING)) {
@@ -172,11 +204,15 @@ struct expression *primary()
 	}
 
 	if (TOKEN_IS(CURRENT_TOKEN, LEFT_PAREN)) {
+		advance();
 		struct expression *expr = expression();
-		CHECK_ERROR_AND_PERFORM(TOKEN_IS(CURRENT_TOKEN, RIGHT_PAREN),
-					perror("Expected ')' after expression.");)
+		CHECK_ERROR_AND_PERFORM(!TOKEN_IS(CURRENT_TOKEN, RIGHT_PAREN),
+					perror("Expected ')' after expression."););
+		advance();
 		return expr;
 	}
+
+	CHECK_ERROR_AND_PERFORM(1, perror("Expression not found."););
 }
 
 void error(struct token t, char* message)
@@ -184,7 +220,7 @@ void error(struct token t, char* message)
 	
 }	
 
-int __TOKEN_IS__(struct token *tok, TokenType type[])
+static int __TOKEN_IS__(struct token *tok, TokenType type[])
 {
 	int NOT_A_TOKEN = -1;
 	for (int i = 0; type[i] != NOT_A_TOKEN; i++)
