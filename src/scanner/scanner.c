@@ -182,12 +182,13 @@ struct token identifier()
 	struct substring *sbstr = &(struct substring){.start=start, .end=current};
 	int s = SUBSTRING_LENGTH((*sbstr)) + 1; // +1 for '\0'
 	char str[s];
-	get_substring(str, *sbstr);
+	sbstrcpy(sbstr, str);
 
 	TokenType t = get_keyword_type(str);
 	return GET_TOKEN(t);
 }
 
+// TODO: Replace this by a hash table
 TokenType get_keyword_type(char *str)
 {
 #define GET(kwstr, tk) if (strcmp(str, kwstr) == 0) return tk;

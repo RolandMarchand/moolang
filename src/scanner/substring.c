@@ -17,10 +17,10 @@
  */
 
 #include "substring.h"
+#include "string.h"
 
-void get_substring(char *str, struct substring sbstr)
+void sbstrcpy(const struct substring *from, char *to)
 {
-	for (int i = 0; i < SUBSTRING_LENGTH(sbstr); i++)
-		str[i] = sbstr.start[i];
-	str[SUBSTRING_LENGTH(sbstr)] = '\0';
+	strncpy(from->start, to, SUBSTRING_LENGTH(*from) - 1);
+	to[SUBSTRING_LENGTH(*from)] = '\0';
 }
