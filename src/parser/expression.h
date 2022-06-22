@@ -20,6 +20,8 @@
 
 #include "parser.h"
 
+#include "scanner/token.h"
+
 struct expression {
 	struct token operator;
 	struct expression* left;
