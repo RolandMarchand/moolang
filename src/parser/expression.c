@@ -16,13 +16,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "expression.h"
-#include "token_manager.h"
-
-#include "macros.h"
+#include "parser.h"
 
 #include <stdio.h>
 #include <stdlib.h>
+
+#include "macros.h"
 
 #define expression() get_next_expr()
 
@@ -56,95 +55,95 @@ struct expression *get_next_expr()
 
 static struct expression *equality()
 {
-	struct expression *expr = comparison();
+	struct expression *left = comparison();
 
 	while (CURRENT_TOKEN_IS(BANG_EQUAL, EQUAL_EQUAL)) {
 		struct token operator = advance();
 		struct expression *right = comparison();
 
-		struct expression *new_expr = malloc(sizeof(struct expression));
+		struct expression *expr = malloc(sizeof(struct expression));
 
-		ASSERT(new_expr != NULL, "Failed to allocate memory.");
+		ASSERT(expr != NULL, "Failed to allocate memory.");
 
-		*new_expr = (struct expression){
+		*expr = (struct expression){
 			.operator = operator,
-			.left = expr,
+			.left = left,
 			.right = right
 		};
-		expr = new_expr;
+		left = expr;
 	}
 
-	return expr;
+	return left;
 }
 
 static struct expression *comparison()
 {
-	struct expression *expr = term();
+	struct expression *left = term();
 
 	while (CURRENT_TOKEN_IS(\
 			GREATER, GREATER_EQUAL, LESS, LESS_EQUAL)) {
 		struct token operator = advance();
 		struct expression *right = term();
 
-		struct expression *new_expr = malloc(sizeof(struct expression));
+		struct expression *expr = malloc(sizeof(struct expression));
 
-		ASSERT(new_expr != NULL, "Failed to allocate memory.");
+		ASSERT(expr != NULL, "Failed to allocate memory.");
 
-		*new_expr = (struct expression){
+		*expr = (struct expression){
 			.operator = operator,
-			.left = expr,
+			.left = left,
 			.right = right
 		};
-		expr = new_expr;
+		left = expr;
 	}
 
-	return expr;
+	return left;
 }
 
 static struct expression *term()
 {
-	struct expression *expr = factor();
+	struct expression *left = factor();
 
 	while (CURRENT_TOKEN_IS(PLUS, MINUS)) {
 		struct token operator = advance();
 		struct expression *right = factor();
 
-		struct expression *new_expr = malloc(sizeof(struct expression));
+		struct expression *expr = malloc(sizeof(struct expression));
 
-		ASSERT(new_expr != NULL, "Failed to allocate memory.");
+		ASSERT(expr != NULL, "Failed to allocate memory.");
 
-		*new_expr = (struct expression){
+		*expr = (struct expression){
 			.operator = operator,
-			.left = expr,
+			.left = left,
 			.right = right
 		};
-		expr = new_expr;
+		left = expr;
 	}
 
-	return expr;
+	return left;
 }
 
 static struct expression *factor()
 {
-	struct expression *expr = unary();
+	struct expression *left = unary();
 
 	while (CURRENT_TOKEN_IS(STAR, SLASH)) {
 		struct token operator = advance();
 		struct expression *right = unary();
 
-		struct expression *new_expr = malloc(sizeof(struct expression));
+		struct expression *expr = malloc(sizeof(struct expression));
 
-		ASSERT(new_expr != NULL, "Failed to allocate memory.");
+		ASSERT(expr != NULL, "Failed to allocate memory.");
 
-		*new_expr = (struct expression){
+		*expr = (struct expression){
 			.operator = operator,
-			.left = expr,
+			.left = left,
 			.right = right
 		};
-		expr = new_expr;
+		left = expr;
 	}
 
-	return expr;
+	return left;
 }
 
 static struct expression *unary()
@@ -153,15 +152,15 @@ static struct expression *unary()
 		struct token operator = advance();
 		struct expression *right = unary();
 
-		struct expression *new_expr = malloc(sizeof(struct expression));
+		struct expression *expr = malloc(sizeof(struct expression));
 
-		ASSERT(new_expr != NULL, "Failed to allocate memory.");
+		ASSERT(expr != NULL, "Failed to allocate memory.");
 
-		*new_expr = (struct expression){
+		*expr = (struct expression){
 			.operator = operator,
 			.right = right
 		};
-		return new_expr;
+		return expr;
 	}
 
 	return primary();

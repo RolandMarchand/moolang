@@ -22,7 +22,16 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define GET_TOKEN(KEYWORD) (struct token){.type=KEYWORD, .lexeme=(struct substring){.start=start, .end=current}, .line=line}
+#define GET_TOKEN(KEYWORD) (struct token)		\
+	{						\
+		.type = KEYWORD,			\
+			.lexeme = (struct substring)	\
+			{				\
+				.start = start,		\
+				.end = current		\
+			},				\
+			.line = line			\
+			}
 #define IS_DIGIT(d) (d >= '0' && d <= '9')
 #define IS_ALPHA(c) ((c >= 'A' && c <= 'z') || c == '_')
 

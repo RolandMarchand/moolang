@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include "scanner/scanner.h"
+#include "parser.h"
 
 struct expression {
 	struct token operator;

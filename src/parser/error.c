@@ -16,11 +16,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "error.h"
-#include "token_manager.h"
+#include "parser.h"
 
 #include <stdio.h>
-
 
 static char error_status = 0;
 

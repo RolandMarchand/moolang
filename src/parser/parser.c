@@ -19,10 +19,36 @@
 #include "parser.h"
 #include "expression_printer.h"
 
+#include "macros.h"
+
 struct expression *parse(struct scan *s)
 {
 	parser_tokens = *(s->tokens);
 	struct expression *e = get_next_expr();
 	PRINT_EXPRESSION(e);
 	return e;
+}
+
+struct token advance()
+{
+	ASSERT(parser_tokens.count > 0, "Not enough tokens.");
+
+	struct token t = *CURRENT_TOKEN;
+
+	if (parser_tokens.count == 1)
+		return t;
+
+	++(parser_tokens.array);
+	--(parser_tokens.count);
+	parser_tokens.size -= sizeof(struct token);
+
+	return t;
+}
+
+int __TOKEN_IS__(struct token *tok, TokenType type[])
+{
+	int NOT_A_TOKEN = -1;
+	for (int i = 0; type[i] != NOT_A_TOKEN; i++)
+		if (tok->type == type[i]) return 1;
+	return 0;
 }

@@ -18,6 +18,8 @@
 
 #pragma once
 
+#include <stdlib.h>
+
 #define ASSERT(expr, error)			\
 	{					\
 		if (!(expr)) {			\
