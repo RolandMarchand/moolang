@@ -17,7 +17,6 @@
  */
 
 #include "scanner.h"
-#include "error/error.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -30,6 +29,7 @@
 static int line = 0;
 static char *start = 0;
 static char *current = 0;
+static char valid_input = 1;
 
 static void scan_tokens(const struct source *const src, struct token_array *const ta);
 static struct token get_token();
@@ -49,10 +49,15 @@ struct scan *scan_init(const char *filename)
 
 	scan_tokens(src, ta);
 
+	if (!valid_input) exit(1);
+
 	struct scan *s = malloc(sizeof(struct scan));
 
 	if (s == NULL) {
-		FAIL_ALLOC;
+		fprintf(stderr,
+			"Failed to allocate %lu bytes in scan_init.",
+			sizeof(struct scan));
+		exit(1);
 	}
 
 	*s = (struct scan){.source = src, .tokens = ta};
@@ -146,7 +151,13 @@ static struct token get_token()
 	default:
 		if (IS_DIGIT(current[0])) return digit();
 		if (IS_ALPHA(current[0])) return identifier();
-		ERR_UNEXPECTED_CHARACTER(line, current[0]);
+
+		// Invalid.
+		valid_input = 0;
+		fprintf(stderr,
+			"Unexpected character %c at line %d",
+			current[0], line);
+		return GET_TOKEN(INVALID);
 	}
 }
 
@@ -161,14 +172,19 @@ static char advance()
 
 static struct token string()
 {
-	while (current[0] != '"' && current[0] != '\0') {
+	int line_begin = line; // Used to print error message.
+
+	while (current[0] != '"') {
 		if (current[0] == '\n') line++;
 		if (current[0] == '\\') advance();
-		advance();
-	}
-	
-	if (current[0] == '\0') {
-		ERR_UNTERMINATED_STRING(line);
+
+		if (current[0] != '\0') {
+			advance();
+			continue;
+		}
+
+		fprintf(stderr, "Unterminated string at line %d.", line_begin);
+		return GET_TOKEN(INVALID);
 	}
 	
 	advance();
@@ -179,17 +195,21 @@ static struct token digit()
 {
 	while (IS_DIGIT(current[0])) advance();
 
-	if (current[0] != '.')
-		goto exit_digit;
+	if (current[0] != '.') goto return_digit;
 	
-	if (!IS_DIGIT(current[1])) {
-		ERR_UNEXPECTED_CHARACTER(line, current[1]);
-	}
+	if (!IS_DIGIT(current[1])) goto return_invalid;
 	
 	while (IS_DIGIT(current[0])) advance();
 
-exit_digit:
+return_digit:
 	return GET_TOKEN(NUMBER);
+	
+return_invalid:
+	fprintf(stderr,
+		"Expected %c at line %d to be a number after the '.'.",
+		current[1], line);
+	while (IS_ALPHA(current[0]) || IS_DIGIT(current[0])) advance();
+	return GET_TOKEN(INVALID);
 }
 
 static struct token identifier()

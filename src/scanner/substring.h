@@ -18,15 +18,7 @@
 
 #pragma once
 
-#include <stdio.h>
-
 #define SUBSTRING_LENGTH(sbstr) ((int)((sbstr).end - (sbstr).start))
-#define PRINT_SUBSTRING(sbstr)					\
-	{							\
-		char __STR__[SUBSTRING_LENGTH(sbstr) + 1];	\
-		sbstrcpy(sbstr, __STR__);			\
-		printf("%s", __STR__);				\
-	}
 
 struct substring {
 	char *start;

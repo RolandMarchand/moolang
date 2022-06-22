@@ -16,18 +16,51 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
-
 #include "error.h"
 #include "token_manager.h"
 
-#include "scanner/scanner.h"
+#include <stdio.h>
 
-struct expression {
-	struct token operator;
-	struct expression* left;
-	struct expression* right;
-};
 
-struct expression *parse(struct scan *s);
-void free_expression(struct expression *e);
+static char error_status = 0;
+
+char get_error_status() {
+	return error_status;
+}
+
+void report(int line, char *message)
+{
+	error_status = 1;
+
+	if (CURRENT_TOKEN_IS(END_OF_FILE)) {
+		fprintf(stderr, "%d at end: %s", line, message);
+		return;
+	}
+
+	char lexeme[SUBSTRING_LENGTH(*CURRENT_TOKEN.lexeme) + 1];
+	sbstrcpy(CURRENT_TOKEN.lexeme, lexeme);
+
+	fprintf(stderr, "%d at %s: %s", line, lexeme, message);
+}
+
+void synchronize()
+{
+	advance();
+
+	while (!CURRENT_TOKEN_IS(END_OF_FILE)) {
+		switch (*CURRENT_TOKEN.type) {
+		case SEMICOLON:
+			advance();
+		case BLUEPRINT:	
+		case PROCEDURE:
+		case IF:
+		case WHILE:
+		case FLUID:
+		case WRITE:
+		case PRODUCE:
+			return;
+		default:
+			advance();
+		}
+	}
+}

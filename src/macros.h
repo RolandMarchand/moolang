@@ -17,31 +17,12 @@
  */
 
 #pragma once
-#include "substring.h"
 
-typedef enum {
-	// Single-character tokens.
-	LEFT_PAREN, RIGHT_PAREN, LEFT_BRACE, RIGHT_BRACE, COMMA, DOT, MINUS,
-	PLUS, SEMICOLON, STAR, SLASH,
+#define ASSERT(expr, error)			\
+	{					\
+		if (!(expr)) {			\
+			perror(error);		\
+			exit(EXIT_FAILURE);	\
+		}				\
+	}
 
-	// One or two character tokens.
-	BANG, BANG_EQUAL,
-	EQUAL, EQUAL_EQUAL,
-	GREATER, GREATER_EQUAL,
-	LESS, LESS_EQUAL,
-
-	// Literals.
-	IDENTIFIER, STRING, NUMBER,
-
-	// Keywords.
-	CON, DIS, BLUEPRINT, IF, ELSE, YES, NO, PROCEDURE, WRITE, PRODUCE, ME,
-	WHILE, FLUID, SOLID, NIL,
-
-	INVALID, END_OF_FILE
-} TokenType;
-
-struct token {
-	struct substring lexeme;
-	TokenType type;
-	int line;
-};

@@ -16,8 +16,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "error/error.h"
 #include "source.h"
+#include "macros.h" // for ASSERT
 
 #include <sys/mman.h>
 #include <sys/stat.h>
@@ -29,18 +29,15 @@
 struct source *source_new(const char *file)
 {
 	struct stat sb;
-	if (stat(file, &sb) == -1) {
-		FAIL_OPEN_FILE(file);
-	}
+	ASSERT(stat(file, &sb) != -1, "Invalid input file.");
 
 	int fd = open(file, O_RDONLY);
 	char *code = mmap(NULL, sb.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
 
 	struct source *sf = malloc(sizeof(struct source));
 
-	if (sf == NULL) {
-		FAIL_ALLOC;
-	}
+	ASSERT(fd != -1 && code != MAP_FAILED && sf != NULL,
+	       "Failed to allocate source file.");
 
 	*sf = (struct source){
 		.string = code,
@@ -54,10 +51,8 @@ struct source *source_new(const char *file)
 
 void source_close(struct source *sf)
 {
-	if (munmap(sf->string, sf->size) == -1)
-		FAIL_FREE_FILE(sf->file_name);
-	if (close(sf->file_descriptor) == -1)
-		FAIL_CLOSE_FILE(sf->file_descriptor);
+	ASSERT(munmap(sf->string, sf->size) != -1 &&
+	       close(sf->file_descriptor) != -1, "Unable to close source file.");
 
 	free(sf);
 	sf = NULL;

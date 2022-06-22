@@ -17,20 +17,13 @@
  */
 
 #include "parser.h"
-#include "scanner/scanner.h"
+#include "expression_printer.h"
+#include "macros.h"
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <error/error.h>
-#include <assert.h>
 
-#define CURRENT_TOKEN &tokens.array[0]
-#define CURRENT_TOKEN_IS(...) __TOKEN_IS__(CURRENT_TOKEN,			\
-					    (TokenType[]){__VA_ARGS__, -1})
-
-static struct token_array tokens;
-
-static struct token advance();
+struct token_array parser_tokens;
 
 static struct expression *expression();
 static struct expression *equality();
@@ -40,71 +33,26 @@ static struct expression *factor();
 static struct expression *unary();
 static struct expression *primary();
 
-static int __TOKEN_IS__(struct token *tok, TokenType type[]);
-
-// TODO: remove
-#include <string.h>
-void treecpy(char* str, int *offset, struct expression *e)
+struct expression *parse(struct scan *s)
 {
-#define WRITE_LEXEME							\
-	{								\
-		strncpy(str+*offset, e->operator.lexeme.start,		\
-			SUBSTRING_LENGTH(e->operator.lexeme));		\
-		*offset += SUBSTRING_LENGTH(e->operator.lexeme);	\
-	}
-#define ADD(c)					\
-	{					\
-		str[*offset] = c;		\
-		(*offset)++;			\
-	}
-
-	if (e->left != NULL) {
-		ADD('(');
-		WRITE_LEXEME;
-		ADD(' ');
-		treecpy(str, offset, e->left);
-		ADD(' ');
-		treecpy(str, offset, e->right);
-		ADD(')');
-	} else if (e->right != NULL) {
-		ADD('(');
-		WRITE_LEXEME;
-		treecpy(str, offset, e->right);
-		ADD(')');
-	} else {
-		WRITE_LEXEME;
-	}
-#undef WRITE_LEXEME
-#undef SPACE
-}
-
-void parse(struct scan *s)
-{
-	tokens = *(s->tokens);
-
+	parser_tokens = *(s->tokens);
 	struct expression *e = expression();
-	char t[1024];
-	int i = 0;
-	for (int _i = 0; _i < 1024; _i++)
-		t[_i] = '\0';
-	treecpy(t, &i, e);
-	printf("%s\n", t);
+	PRINT_EXPRESSION(e);
+	return e;
 }
 
-static struct token advance()
+void free_expression(struct expression *e)
 {
-	assert(tokens.count > 0);
-	
-	struct token t = tokens.array[0];
-	
-	if (tokens.count == 1)
-		return t;
-	
-	++(tokens.array);
-	--(tokens.count);
-	tokens.size -= sizeof(struct token);
+	if (e->left != NULL) {
+		free_expression(e->left);
+	}
 
-	return t;
+	if (e->right != NULL) {
+		free_expression(e->right);
+	}
+
+	free(e);
+	e = NULL;
 }
 
 static struct expression *expression()
@@ -122,11 +70,9 @@ static struct expression *equality()
 
 		struct expression *new_expr = malloc(sizeof(struct expression));
 
-		if (new_expr == NULL) {
-			FAIL_ALLOC;
-		}
+		ASSERT(new_expr != NULL, "Failed to allocate memory.");
 
-		*new_expr = (struct expression) {
+		*new_expr = (struct expression){
 			.operator = operator,
 			.left = expr,
 			.right = right
@@ -148,11 +94,9 @@ static struct expression *comparison()
 
 		struct expression *new_expr = malloc(sizeof(struct expression));
 
-		if (new_expr == NULL) {
-			FAIL_ALLOC;
-		}
+		ASSERT(new_expr != NULL, "Failed to allocate memory.");
 
-		*new_expr = (struct expression) {
+		*new_expr = (struct expression){
 			.operator = operator,
 			.left = expr,
 			.right = right
@@ -173,11 +117,9 @@ static struct expression *term()
 
 		struct expression *new_expr = malloc(sizeof(struct expression));
 
-		if (new_expr == NULL) {
-			FAIL_ALLOC;
-		}
+		ASSERT(new_expr != NULL, "Failed to allocate memory.");
 
-		*new_expr = (struct expression) {
+		*new_expr = (struct expression){
 			.operator = operator,
 			.left = expr,
 			.right = right
@@ -198,11 +140,9 @@ static struct expression *factor()
 
 		struct expression *new_expr = malloc(sizeof(struct expression));
 
-		if (new_expr == NULL) {
-			FAIL_ALLOC;
-		}
+		ASSERT(new_expr != NULL, "Failed to allocate memory.");
 
-		*new_expr = (struct expression) {
+		*new_expr = (struct expression){
 			.operator = operator,
 			.left = expr,
 			.right = right
@@ -221,11 +161,9 @@ static struct expression *unary()
 
 		struct expression *new_expr = malloc(sizeof(struct expression));
 
-		if (new_expr == NULL) {
-			FAIL_ALLOC;
-		}
+		ASSERT(new_expr != NULL, "Failed to allocate memory.");
 
-		*new_expr = (struct expression) {
+		*new_expr = (struct expression){
 			.operator = operator,
 			.right = right
 		};
@@ -239,9 +177,7 @@ static struct expression *primary()
 {
 	struct expression *lit = malloc(sizeof(struct expression));
 
-	if (lit == NULL) {
-		FAIL_ALLOC;
-	}
+	ASSERT(lit != NULL, "Failed to allocate memory.");
 
 	if (CURRENT_TOKEN_IS(YES, NO, NIL, NUMBER, STRING)) {
 		lit->operator = advance();
@@ -253,22 +189,14 @@ static struct expression *primary()
 		struct expression *expr = expression();
 
 		if (!CURRENT_TOKEN_IS(RIGHT_PAREN)) {
-			ERR_EXPECTED_CHARACTER(*CURRENT_TOKEN.line,
-					       *CURRENT_TOKEN.lexeme.start[0],
-					       ')');
+			// Synchronize.
 		}
 
 		advance();
 		return expr;
 	}
 
-	ERR_EXPRESSION_NOT_FOUND;
-}
-
-static int __TOKEN_IS__(struct token *tok, TokenType type[])
-{
-	int NOT_A_TOKEN = -1;
-	for (int i = 0; type[i] != NOT_A_TOKEN; i++)
-		if (tok->type == type[i]) return 1;
-	return 0;
+	// To change.
+	fprintf(stderr, "No expression found.");
+	exit(1);
 }
