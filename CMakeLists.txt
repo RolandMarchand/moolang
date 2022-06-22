@@ -13,6 +13,7 @@ target_include_directories(scanner PUBLIC src/)
 
 add_library(parser STATIC
   src/parser/parser.c
+  src/parser/expression.c
   src/parser/token_manager.c
   src/parser/error.c)
 target_include_directories(parser PUBLIC src/)

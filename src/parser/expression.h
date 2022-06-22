@@ -18,10 +18,13 @@
 
 #pragma once
 
-#include "error.h"
-#include "token_manager.h"
-#include "expression.h"
-
 #include "scanner/scanner.h"
 
-struct expression *parse(struct scan *s);
+struct expression {
+	struct token operator;
+	struct expression* left;
+	struct expression* right;
+};
+
+struct expression *get_next_expr();
+void free_expression(struct expression *e);
