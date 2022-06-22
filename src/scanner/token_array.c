@@ -1,4 +1,4 @@
-/* 
+/*
  * Moolang, a programming language.
  * Copyright (C) 2022 moowool195@gmail.com
  *
@@ -6,12 +6,12 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
@@ -28,7 +28,7 @@ struct token_array *token_array_init()
 	struct token_array *ta = malloc(sizeof(struct token_array));
 
 	assert(ta != NULL);
-		
+
 	ta->count = 0;
 	ta->size = TOKEN_ARRAY_BUFFER_COUNT * sizeof(struct token);
 	ta->array = malloc(ta->size);

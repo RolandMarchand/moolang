@@ -5,12 +5,12 @@
 struct token advance()
 {
 	assert(parser_tokens.count > 0);
-	
+
 	struct token t = *CURRENT_TOKEN;
-	
+
 	if (parser_tokens.count == 1)
 		return t;
-	
+
 	++(parser_tokens.array);
 	--(parser_tokens.count);
 	parser_tokens.size -= sizeof(struct token);
