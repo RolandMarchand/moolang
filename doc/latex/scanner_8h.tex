@@ -1,0 +1,56 @@
+\hypertarget{scanner_8h}{}\doxysection{src/scanner/scanner.h File Reference}
+\label{scanner_8h}\index{src/scanner/scanner.h@{src/scanner/scanner.h}}
+{\ttfamily \#include \char`\"{}token\+\_\+array.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}substring.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}token.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}source.\+h\char`\"{}}\newline
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structscan}{scan}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structscan}{scan}} $\ast$ \mbox{\hyperlink{scanner_8h_a104e45ed7a9211ff59807e2585c538a5}{scan\+\_\+init}} (const char $\ast$filename)
+\item 
+void \mbox{\hyperlink{scanner_8h_aa02d14e746bd0648c78532a4e557021e}{scan\+\_\+del}} (struct \mbox{\hyperlink{structscan}{scan}} $\ast$s)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{scanner_8h_aa02d14e746bd0648c78532a4e557021e}\label{scanner_8h_aa02d14e746bd0648c78532a4e557021e}} 
+\index{scanner.h@{scanner.h}!scan\_del@{scan\_del}}
+\index{scan\_del@{scan\_del}!scanner.h@{scanner.h}}
+\doxysubsubsection{\texorpdfstring{scan\_del()}{scan\_del()}}
+{\footnotesize\ttfamily void scan\+\_\+del (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structscan}{scan}} $\ast$}]{s }\end{DoxyParamCaption})}
+
+Safely deletes the scan returned from scan\+\_\+init.~\newline
+Not doing so will result in a memory leak. \begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{scanner_8h_a104e45ed7a9211ff59807e2585c538a5}{scan\+\_\+init}} 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em s} & is the scan returned from \mbox{\hyperlink{scanner_8h_a104e45ed7a9211ff59807e2585c538a5}{scan\+\_\+init()}} that will be freed. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{scanner_8h_a104e45ed7a9211ff59807e2585c538a5}\label{scanner_8h_a104e45ed7a9211ff59807e2585c538a5}} 
+\index{scanner.h@{scanner.h}!scan\_init@{scan\_init}}
+\index{scan\_init@{scan\_init}!scanner.h@{scanner.h}}
+\doxysubsubsection{\texorpdfstring{scan\_init()}{scan\_init()}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structscan}{scan}}$\ast$ scan\+\_\+init (\begin{DoxyParamCaption}\item[{const char $\ast$}]{filename }\end{DoxyParamCaption})}
+
+Scan a Moolang source code file to identify the tokens that will be parsed by the parser.~\newline
+This command performs manual memory allocations, and the resulting pointer must be passed to \mbox{\hyperlink{scanner_8h_aa02d14e746bd0648c78532a4e557021e}{scan\+\_\+del()}}. \begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{scanner_8h_aa02d14e746bd0648c78532a4e557021e}{scan\+\_\+del()}} 
+
+\mbox{\hyperlink{structscan}{scan}} 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & an absolute or relative path to the source code. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{structscan}{scan}}, a structure containing an array of the scanned tokens and the input file\textquotesingle{}s source code. 
+\end{DoxyReturn}

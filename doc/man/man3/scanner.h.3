@@ -1,0 +1,78 @@
+.TH "src/scanner/scanner.h" 3 "Fri Jun 24 2022" "Version 1.0" "Moolang" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/scanner/scanner.h
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'token_array\&.h'\fP
+.br
+\fC#include 'substring\&.h'\fP
+.br
+\fC#include 'token\&.h'\fP
+.br
+\fC#include 'source\&.h'\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBscan\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "struct \fBscan\fP * \fBscan_init\fP (const char *filename)"
+.br
+.ti -1c
+.RI "void \fBscan_del\fP (struct \fBscan\fP *s)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "void scan_del (struct \fBscan\fP * s)"
+Safely deletes the scan returned from scan_init\&.
+.br
+Not doing so will result in a memory leak\&. 
+.PP
+\fBSee also\fP
+.RS 4
+\fBscan_init\fP 
+.RE
+.PP
+\fBParameters\fP
+.RS 4
+\fIs\fP is the scan returned from \fBscan_init()\fP that will be freed\&. 
+.RE
+.PP
+
+.SS "struct \fBscan\fP* scan_init (const char * filename)"
+Scan a Moolang source code file to identify the tokens that will be parsed by the parser\&.
+.br
+This command performs manual memory allocations, and the resulting pointer must be passed to \fBscan_del()\fP\&. 
+.PP
+\fBSee also\fP
+.RS 4
+\fBscan_del()\fP 
+.PP
+\fBscan\fP 
+.RE
+.PP
+\fBParameters\fP
+.RS 4
+\fIfilename\fP an absolute or relative path to the source code\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+\fBscan\fP, a structure containing an array of the scanned tokens and the input file's source code\&. 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Moolang from the source code\&.
