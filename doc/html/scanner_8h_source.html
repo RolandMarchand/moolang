@@ -97,76 +97,73 @@ $(document).ready(function(){initNavTree('scanner_8h_source.html',''); initResiz
 <div class="title">scanner.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="scanner_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * Moolang, a programming language.</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> * Copyright (C) 2022 moowool195@gmail.com</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> * This program is free software: you can redistribute it and/or modify</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> * it under the terms of the GNU General Public License as published by</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> * the Free Software Foundation, either version 3 of the License, or</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> * (at your option) any later version.</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> * This program is distributed in the hope that it will be useful,</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> * GNU General Public License for more details.</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"> * You should have received a copy of the GNU General Public License</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"> * along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * The scan struct is the final output of the scanner. It contains the</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * source code of the program and a dynamic array of tokens.</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * To get the scan struct, call the `scan_init` function.</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * To delete the scan, call the `scan_del` function. Not doing so will</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> * result in a memory leak.</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment"> * The source is a structure composed of a `string` character array, a</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment"> * `size` integer measuring physical size, and a `file_descriptor`. The source is managed</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment"> * automatically.</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"> * The dynamic array of tokens is similar to the source, composed of an</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> * `array` of tokens, a `size` integer measuring the physical size of</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"> * the array, and a `count` integer, counting the number of tokens. The</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"> * array of tokens is managed automatically.</span></div>
+<a href="scanner_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * Copyright (c) 2022, Roland Marchand &lt;roland.marchand@protonmail.com&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * Redistribution and use in source and binary forms, with or without</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> * modification, are permitted provided that the following conditions</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> * are met:</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> * 1. Redistributions of source code must retain the above copyright</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> *    notice, this list of conditions and the following disclaimer.</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS&#39;&#39; AND</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"> * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"> * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> * SUCH DAMAGE.</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &quot;token_array.h&quot;</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &quot;substring.h&quot;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &quot;token.h&quot;</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &quot;source.h&quot;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> * The source is a structure composed of a `string` character array, a</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"> * `size` integer measuring physical size, and a `file_descriptor`. The source is managed</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"> * automatically.</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment"> * Tokens of the dynamic array are structures being made of their</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment"> * `type` (TypeToken), the `line` on which they appear in the source</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment"> * code, and a `lexeme`. The `lexeme` is a custom structure called a</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment"> * substring.</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment"> * The dynamic array of tokens is similar to the source, composed of an</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment"> * `array` of tokens, a `size` integer measuring the physical size of</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment"> * the array, and a `count` integer, counting the number of tokens. The</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment"> * array of tokens is managed automatically.</span></div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment"> * Substrings are composed of two char pointers `start` and `end`</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment"> * pointing to a section of a string. You can use `sbstrcpy` to</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment"> * write the contents of a substring in a user-defined character array</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment"> * of size `SUBSTRING_LENGTH(sbstr) + 1`. There is a</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment"> * `PRINT_SUBSTRING(sbstr)` macro, to print the substring to STDOUT.</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#include &quot;token_array.h&quot;</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#include &quot;substring.h&quot;</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#include &quot;token.h&quot;</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#include &quot;source.h&quot;</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="structscan.html">   62</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structscan.html">scan</a> {</div>
-<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="structscan.html#ac507f9464ce50c5e5e6a951ccbf17445">   63</a></span>&#160;        <span class="keyword">struct </span><a class="code" href="structsource.html">source</a> *<a class="code" href="structscan.html#ac507f9464ce50c5e5e6a951ccbf17445">source</a>;  </div>
-<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="structscan.html#aeb97ca6ebe06af42309df21b48454a64">   64</a></span>&#160;        <span class="keyword">struct </span><a class="code" href="structtoken__array.html">token_array</a> *<a class="code" href="structscan.html#aeb97ca6ebe06af42309df21b48454a64">tokens</a>; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;};</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keyword">extern</span> <span class="keyword">struct </span><a class="code" href="structscan.html">scan</a> *<a class="code" href="scanner_8h.html#a104e45ed7a9211ff59807e2585c538a5">scan_init</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *filename);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="scanner_8h.html#aa02d14e746bd0648c78532a4e557021e">scan_del</a>(<span class="keyword">struct</span> <a class="code" href="structscan.html">scan</a> *s);</div>
-<div class="ttc" id="ascanner_8h_html_a104e45ed7a9211ff59807e2585c538a5"><div class="ttname"><a href="scanner_8h.html#a104e45ed7a9211ff59807e2585c538a5">scan_init</a></div><div class="ttdeci">struct scan * scan_init(const char *filename)</div><div class="ttdef"><b>Definition:</b> scanner.c:53</div></div>
-<div class="ttc" id="ascanner_8h_html_aa02d14e746bd0648c78532a4e557021e"><div class="ttname"><a href="scanner_8h.html#aa02d14e746bd0648c78532a4e557021e">scan_del</a></div><div class="ttdeci">void scan_del(struct scan *s)</div><div class="ttdef"><b>Definition:</b> scanner.c:77</div></div>
-<div class="ttc" id="astructscan_html"><div class="ttname"><a href="structscan.html">scan</a></div><div class="ttdef"><b>Definition:</b> scanner.h:62</div></div>
-<div class="ttc" id="astructscan_html_ac507f9464ce50c5e5e6a951ccbf17445"><div class="ttname"><a href="structscan.html#ac507f9464ce50c5e5e6a951ccbf17445">scan::source</a></div><div class="ttdeci">struct source * source</div><div class="ttdef"><b>Definition:</b> scanner.h:63</div></div>
-<div class="ttc" id="astructscan_html_aeb97ca6ebe06af42309df21b48454a64"><div class="ttname"><a href="structscan.html#aeb97ca6ebe06af42309df21b48454a64">scan::tokens</a></div><div class="ttdeci">struct token_array * tokens</div><div class="ttdef"><b>Definition:</b> scanner.h:64</div></div>
-<div class="ttc" id="astructsource_html"><div class="ttname"><a href="structsource.html">source</a></div><div class="ttdef"><b>Definition:</b> source.h:21</div></div>
-<div class="ttc" id="astructtoken__array_html"><div class="ttname"><a href="structtoken__array.html">token_array</a></div><div class="ttdef"><b>Definition:</b> token_array.h:24</div></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment"> * Tokens of the dynamic array are structures being made of their</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment"> * `type` (TypeToken), the `line` on which they appear in the source</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment"> * code, and a `lexeme`. The `lexeme` is a custom structure called a</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment"> * substring.</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment"> * Substrings are composed of two char pointers `start` and `end`</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment"> * pointing to a section of a string. You can use `sbstrcpy` to</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment"> * write the contents of a substring in a user-defined character array</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment"> * of size `SUBSTRING_LENGTH(sbstr) + 1`. There is a</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment"> * `PRINT_SUBSTRING(sbstr)` macro, to print the substring to STDOUT.</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="structscan.html">   60</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structscan.html">scan</a> {</div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="structscan.html#ac507f9464ce50c5e5e6a951ccbf17445">   61</a></span>&#160;        <span class="keyword">struct </span><a class="code" href="structsource.html">source</a> *<a class="code" href="structscan.html#ac507f9464ce50c5e5e6a951ccbf17445">source</a>;  </div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="structscan.html#aeb97ca6ebe06af42309df21b48454a64">   62</a></span>&#160;        <span class="keyword">struct </span><a class="code" href="structtoken__array.html">token_array</a> *<a class="code" href="structscan.html#aeb97ca6ebe06af42309df21b48454a64">tokens</a>; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;};</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keyword">extern</span> <span class="keyword">struct </span><a class="code" href="structscan.html">scan</a> *<a class="code" href="scanner_8h.html#a104e45ed7a9211ff59807e2585c538a5">scan_init</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *filename);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="scanner_8h.html#aa02d14e746bd0648c78532a4e557021e">scan_del</a>(<span class="keyword">struct</span> <a class="code" href="structscan.html">scan</a> *s);</div>
+<div class="ttc" id="ascanner_8h_html_a104e45ed7a9211ff59807e2585c538a5"><div class="ttname"><a href="scanner_8h.html#a104e45ed7a9211ff59807e2585c538a5">scan_init</a></div><div class="ttdeci">struct scan * scan_init(const char *filename)</div><div class="ttdef"><b>Definition:</b> scanner.c:58</div></div>
+<div class="ttc" id="ascanner_8h_html_aa02d14e746bd0648c78532a4e557021e"><div class="ttname"><a href="scanner_8h.html#aa02d14e746bd0648c78532a4e557021e">scan_del</a></div><div class="ttdeci">void scan_del(struct scan *s)</div><div class="ttdef"><b>Definition:</b> scanner.c:82</div></div>
+<div class="ttc" id="astructscan_html"><div class="ttname"><a href="structscan.html">scan</a></div><div class="ttdef"><b>Definition:</b> scanner.h:60</div></div>
+<div class="ttc" id="astructscan_html_ac507f9464ce50c5e5e6a951ccbf17445"><div class="ttname"><a href="structscan.html#ac507f9464ce50c5e5e6a951ccbf17445">scan::source</a></div><div class="ttdeci">struct source * source</div><div class="ttdef"><b>Definition:</b> scanner.h:61</div></div>
+<div class="ttc" id="astructscan_html_aeb97ca6ebe06af42309df21b48454a64"><div class="ttname"><a href="structscan.html#aeb97ca6ebe06af42309df21b48454a64">scan::tokens</a></div><div class="ttdeci">struct token_array * tokens</div><div class="ttdef"><b>Definition:</b> scanner.h:62</div></div>
+<div class="ttc" id="astructsource_html"><div class="ttname"><a href="structsource.html">source</a></div><div class="ttdef"><b>Definition:</b> source.h:26</div></div>
+<div class="ttc" id="astructtoken__array_html"><div class="ttname"><a href="structtoken__array.html">token_array</a></div><div class="ttdef"><b>Definition:</b> token_array.h:29</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -1,24 +1,29 @@
+/*
+ * Copyright (c) 2022, Roland Marchand <roland.marchand@protonmail.com>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
 /** \file
     A programming language
 */
-
-/*
- * Moolang, a programming language.
- * Copyright (C) 2022 moowool195@gmail.com
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
 
 /** \mainpage
     # About Moolang
@@ -44,21 +49,26 @@
     \endcode
     
     # License
-    > Moolang, a programming language.<br />
-    > Copyright (C) 2022 moowool195@gmail.com
+    > Copyright (c) 2022, Roland Marchand <roland.marchand@protonmail.com>
     > 
-    > This program is free software: you can redistribute it and/or modify<br />
-    > it under the terms of the GNU General Public License as published by<br />
-    > the Free Software Foundation, either version 3 of the License, or<br />
-    > (at your option) any later version.
+    > Redistribution and use in source and binary forms, with or without<br />
+    > modification, are permitted provided that the following conditions<br />
+    > are met:
     > 
-    > This program is distributed in the hope that it will be useful,<br />
-    > but WITHOUT ANY WARRANTY; without even the implied warranty of<br />
-    > MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the<br />
-    > GNU General Public License for more details.
+    > 1. Redistributions of source code must retain the above copyright<br />
+    >    notice, this list of conditions and the following disclaimer.
     > 
-    > You should have received a copy of the GNU General Public License<br />
-    > along with this program.  If not, see <https://www.gnu.org/licenses/>.
+    > THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND<br />
+    > ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE<br />
+    > IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE<br />
+    > ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE<br />
+    > FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL<br />
+    > DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS<br />
+    > OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)<br />
+    > HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT<br />
+    > LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY<br />
+    > OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF<br />
+    > SUCH DAMAGE.
  */
 
 #include "scanner/scanner.h"

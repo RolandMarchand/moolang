@@ -1,31 +1,36 @@
+/*
+ * Copyright (c) 2022, Roland Marchand <roland.marchand@protonmail.com>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+#pragma once
+
+#include "token_array.h"
+#include "substring.h"
+#include "token.h"
+#include "source.h"
+
 /** \file */
 
 /*
- * Moolang, a programming language.
- * Copyright (C) 2022 moowool195@gmail.com
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
-
-/*
- * The scan struct is the final output of the scanner. It contains the
- * source code of the program and a dynamic array of tokens.
- *
- * To get the scan struct, call the `scan_init` function.
- * To delete the scan, call the `scan_del` function. Not doing so will
- * result in a memory leak.
- *
  * The source is a structure composed of a `string` character array, a
  * `size` integer measuring physical size, and a `file_descriptor`. The source is managed
  * automatically.
@@ -46,13 +51,6 @@
  * of size `SUBSTRING_LENGTH(sbstr) + 1`. There is a
  * `PRINT_SUBSTRING(sbstr)` macro, to print the substring to STDOUT.
  */
-
-#pragma once
-
-#include "token_array.h"
-#include "substring.h"
-#include "token.h"
-#include "source.h"
 
 /** Final output of the scanner.
     This should not be created manually, and should only be retreived from
