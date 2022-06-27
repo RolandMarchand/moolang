@@ -24,6 +24,7 @@
 #pragma once
 
 #include <stdlib.h>
+#include <stdio.h>
 
 #define ASSERT(expr, error)			\
 	{					\

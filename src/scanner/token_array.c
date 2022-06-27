@@ -22,9 +22,9 @@
  */
 
 #include "token_array.h"
+#include "macros.h"
 
 #include <stdlib.h>
-#include <assert.h>
 
 static void token_array_grow(struct token_array *ta);
 
@@ -32,13 +32,13 @@ struct token_array *token_array_init()
 {
 	struct token_array *ta = malloc(sizeof(struct token_array));
 
-	assert(ta != NULL);
+	ASSERT(ta != NULL, "Unable to allocate memory for token_array.");
 
 	ta->count = 0;
 	ta->size = TOKEN_ARRAY_BUFFER_COUNT * sizeof(struct token);
 	ta->array = malloc(ta->size);
 
-	assert(ta->array != NULL);
+	ASSERT(ta->array != NULL, "Unable to allocate memory for token_array.");
 
 	return ta;
 }
@@ -56,7 +56,7 @@ static void token_array_grow(struct token_array *ta)
 	ta->size += TOKEN_ARRAY_BUFFER_COUNT * sizeof(struct token);
 	ta->array = realloc(ta->array, ta->size);
 
-	assert(ta->array != NULL);
+	ASSERT(ta->array != NULL, "Unable to grow token_array.");
 }
 
 void token_array_del(struct token_array *ta)
