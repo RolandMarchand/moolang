@@ -37,4 +37,4 @@ extern struct token_array parser_tokens;
 
 struct expression *parse(struct scan *s);
 struct token advance();
-int __TOKEN_IS__(struct token *tok, TokenType type[]);
+int __TOKEN_IS__(const struct token *tok, const TokenType type[]);
