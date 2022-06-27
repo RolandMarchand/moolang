@@ -26,7 +26,7 @@
 #include <stdlib.h>
 #include <assert.h>
 
-static void token_array_grow(struct token_array *ta);
+static void token_array_grow(struct token_array *const ta);
 
 struct token_array *token_array_init()
 {
@@ -43,7 +43,7 @@ struct token_array *token_array_init()
 	return ta;
 }
 
-void token_array_add(struct token_array *const ta, struct token t)
+void token_array_add(struct token_array *const ta, const struct token t)
 {
 	if (ta->count == (ta->size / sizeof(struct token)))
 		token_array_grow(ta);
@@ -51,7 +51,7 @@ void token_array_add(struct token_array *const ta, struct token t)
 	ta->count++;
 }
 
-static void token_array_grow(struct token_array *ta)
+static void token_array_grow(struct token_array *const ta)
 {
 	ta->size += TOKEN_ARRAY_BUFFER_COUNT * sizeof(struct token);
 	ta->array = realloc(ta->array, ta->size);

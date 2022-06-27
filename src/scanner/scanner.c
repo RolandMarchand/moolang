@@ -45,7 +45,7 @@ static char *start = 0;
 static char *current = 0;
 static char valid_input = 1;
 
-static void scan_tokens(const struct source *src, struct token_array *ta);
+static void scan_tokens(const struct source *const src, struct token_array *const ta);
 static struct token get_token();
 static char advance();
 
@@ -53,7 +53,7 @@ static struct token string();
 static struct token digit();
 static struct token identifier();
 
-TokenType get_keyword_type(const char *str);
+TokenType get_keyword_type(char *str);
 
 struct scan *scan_init(const char *filename)
 {
@@ -84,10 +84,10 @@ void scan_del(struct scan *s)
 	source_close(s->source);
 	token_array_del(s->tokens);
 	free(s);
-	s = NULL;
 }
 
-static void scan_tokens(const struct source *src, struct token_array *ta)
+static void scan_tokens(const struct source *const src, \
+			struct token_array *const ta)
 {
 	while(current[0] != '\0') {
 		start = current;
@@ -240,7 +240,7 @@ static struct token identifier()
 }
 
 // TODO: Replace this by a hash table
-TokenType get_keyword_type(const char *str)
+TokenType get_keyword_type(char *str)
 {
 #define GET(kwstr, tk) if (strcmp(str, kwstr) == 0) return tk;
 

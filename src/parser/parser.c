@@ -50,7 +50,7 @@ struct token advance()
 	return t;
 }
 
-int __TOKEN_IS__(const struct token *tok, const TokenType type[])
+int __TOKEN_IS__(struct token *tok, TokenType type[])
 {
 	int NOT_A_TOKEN = -1;
 	for (int i = 0; type[i] != NOT_A_TOKEN; i++)
