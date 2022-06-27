@@ -33,5 +33,5 @@ struct token_array {
 };
 
 extern struct token_array *token_array_init();
-extern void token_array_add(struct token_array *const ta, struct token t);
+extern void token_array_add(struct token_array *ta, struct token t);
 extern void token_array_del(struct token_array *ta);
