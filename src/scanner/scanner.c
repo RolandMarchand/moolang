@@ -45,7 +45,7 @@ static char *start = 0;
 static char *current = 0;
 static char valid_input = 1;
 
-static void scan_tokens(const struct source *src, struct token_array *ta);
+static void scan_tokens(struct token_array *ta);
 static struct token get_token();
 static char advance();
 
@@ -61,7 +61,7 @@ struct scan *scan_init(const char *filename)
 	current = src->string;
 	struct token_array *ta = token_array_init();
 
-	scan_tokens(src, ta);
+	scan_tokens(ta);
 
 	if (!valid_input) exit(1);
 
@@ -69,7 +69,7 @@ struct scan *scan_init(const char *filename)
 
 	if (s == NULL) {
 		fprintf(stderr,
-			"Failed to allocate %lu bytes in scan_init.",
+			"Failed to allocate %zu bytes in scan_init.",
 			sizeof(struct scan));
 		exit(1);
 	}
@@ -86,7 +86,7 @@ void scan_del(struct scan *s)
 	free(s);
 }
 
-static void scan_tokens(const struct source *src, struct token_array *ta)
+static void scan_tokens(struct token_array *ta)
 {
 	while(current[0] != '\0') {
 		start = current;

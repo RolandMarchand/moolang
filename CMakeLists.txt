@@ -9,13 +9,13 @@ add_library(scanner STATIC
   src/scanner/source.c
   src/scanner/substring.c
   src/scanner/token_array.c)
-target_include_directories(scanner PUBLIC src/)
+target_include_directories(scanner PUBLIC ./)
 
 add_library(parser STATIC
   src/parser/parser.c
   src/parser/expression.c
   src/parser/error.c)
-target_include_directories(parser PUBLIC src/)
+target_include_directories(parser PUBLIC ./)
 
 add_executable(moolang src/main.c)
 target_link_libraries(moolang PUBLIC scanner parser)

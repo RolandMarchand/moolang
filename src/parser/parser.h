@@ -26,7 +26,7 @@
 #include "error.h"
 #include "expression.h"
 
-#include "scanner/scanner.h"
+#include "src/scanner/scanner.h"
 
 #define CURRENT_LINE *CURRENT_TOKEN.line
 #define CURRENT_TOKEN &parser_tokens.array[0]

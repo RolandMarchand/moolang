@@ -26,7 +26,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "macros.h"
+#include "src/macros.h"
 
 #define expression() get_next_expr()
 

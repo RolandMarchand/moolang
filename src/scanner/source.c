@@ -22,7 +22,7 @@
  */
 
 #include "source.h"
-#include "macros.h"
+#include "src/macros.h"
 
 #include <sys/mman.h>
 #include <sys/stat.h>

@@ -23,9 +23,9 @@
 
 #pragma once
 
+#include "src/scanner/token.h"
 #include "parser.h"
 
-#include "scanner/token.h"
 
 struct expression {
 	struct token operator;

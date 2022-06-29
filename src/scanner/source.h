@@ -23,6 +23,8 @@
 
 #pragma once
 
+#include "scanner.h"
+
 struct source {
 	char *string;
 	const char *file_name;

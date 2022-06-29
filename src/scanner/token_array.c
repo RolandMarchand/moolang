@@ -22,7 +22,7 @@
  */
 
 #include "token_array.h"
-#include "macros.h"
+#include "src/macros.h"
 
 #include <stdlib.h>
 

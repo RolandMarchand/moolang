@@ -24,7 +24,7 @@
 #include "parser.h"
 #include "expression_printer.h"
 
-#include "macros.h"
+#include "src/macros.h"
 
 struct expression *parse(struct scan *s)
 {
