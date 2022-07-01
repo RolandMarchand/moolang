@@ -17,7 +17,8 @@ add_library(parser STATIC
   src/parser/error.c)
 target_include_directories(parser PUBLIC ./)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 add_executable(moolang src/main.c)
 target_link_libraries(moolang PUBLIC scanner parser)
-
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -Wall -Werror")
+
