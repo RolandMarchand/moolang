@@ -23,22 +23,27 @@
 
 #pragma once
 
+#define VARIANT_TYPE_NUMBER 'n'
+#define VARIANT_TYPE_STRING 's'
+#define VARIANT_TYPE_BOOL 'b'
+
 #define BOOL_YES 'y'
 #define BOOL_NO 'n'
 
 struct variant {
-	char type;
 	union value {
 		double number;
-		char string;
+		char *string;
 		char bool;
 	} value;
+	char type;
 };
 
-struct variant variant_new(char type);
-void variant_set_number(struct variant var, double num);
-void variant_set_string(struct variant var, char* str);
-void variant_set_bool(struct variant var, char b);
+struct variant *variant_new(char type);
+void variant_del(struct variant *var);
+void variant_set_number(struct variant *var, double num);
+void variant_set_string(struct variant *var, char* str);
+void variant_set_bool(struct variant *var, char b);
 double variant_get_number(struct variant* var);
-char variant_get_string(struct variant var);
+char *variant_get_string(struct variant *var);
 char variant_get_bool(struct variant* var);
