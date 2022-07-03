@@ -28,6 +28,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+/* Variant Strings are manually allocated. This function is ran before
+   possibly overriding the string to avoid memory leaks. */
 static void free_string(struct variant *var);
 
 struct variant *variant_new(char type)
@@ -51,11 +53,11 @@ void variant_set_number(struct variant *var, double num)
 	var->value.number = num;
 }
 
-void variant_set_string(struct variant *var, char* str)
+void variant_set_string(struct variant *var, char *str)
 {
 	free_string(var);
 
-	char *s = malloc(strlen(str) + 1);
+	char *s = malloc(strlen(str) + 1); /* + '\0' */
 
 	var->type = VARIANT_TYPE_STRING;
 	var->value.string = s;
@@ -73,7 +75,7 @@ BOOL_YES or BOOL_NO");
 	var->value.number = b;
 }
 
-double variant_get_number(struct variant* var)
+double variant_get_number(struct variant *var)
 {
 	ASSERT(var->type == VARIANT_TYPE_NUMBER, "The variant's type must be \
 VARIANT_TYPE_NUMBER.");
@@ -87,7 +89,7 @@ VARIANT_TYPE_STRING.");
 	return var->value.string;
 }
 
-char variant_get_bool(struct variant* var)
+char variant_get_bool(struct variant *var)
 {
 	ASSERT(var->type == VARIANT_TYPE_BOOL, "The variant's type must be \
 VARIANT_TYPE_BOOL.");
@@ -98,6 +100,5 @@ static void free_string(struct variant *var)
 {
 	if (var->type != VARIANT_TYPE_STRING)
 		return;
-
 	free(var->value.string);
 }
