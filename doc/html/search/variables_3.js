@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['source_64',['source',['../structscan.html#ac507f9464ce50c5e5e6a951ccbf17445',1,'scan']]],
-  ['string_65',['string',['../unionvariant_1_1value.html#a60473b2cd66a4dc7b75bf893c52b6d31',1,'variant::value']]]
+  ['operator_73',['operator',['../structexpression.html#a30258367d08aee8041b666d3d6a74db0',1,'expression']]]
 ];

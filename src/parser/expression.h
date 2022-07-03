@@ -21,17 +21,31 @@
  * SUCH DAMAGE.
  */
 
+/** \file
+The interface for the \ref expression struct.
+*/
+
 #pragma once
 
 #include "src/scanner/token.h"
 #include "parser.h"
 
-
 struct expression {
-	struct token operator;
-	struct expression* left;
-	struct expression* right;
+	struct token operator; /**< Operator. */
+	struct expression* left; /**< Left expression. */
+	struct expression* right; /**< Right expression. */
 };
 
+/** Advance \ref parser_tokens by one expression.<br/>
+    Since the expression is manually allocated, it must be freed using \ref free_expression().
+
+    \return The next expression on the \ref parser_tokens array.
+*/
 struct expression *get_next_expr();
+
+/** Free an expression returned by \ref get_next_expr() and its children
+    recursively.
+
+    \param E: Expression returned by \ref get_next_expr().
+*/
 void free_expression(struct expression *e);

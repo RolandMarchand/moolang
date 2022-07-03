@@ -1,0 +1,47 @@
+\hypertarget{expression_8h}{}\doxysection{src/parser/expression.h File Reference}
+\label{expression_8h}\index{src/parser/expression.h@{src/parser/expression.h}}
+{\ttfamily \#include \char`\"{}src/scanner/token.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}parser.\+h\char`\"{}}\newline
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structexpression}{expression}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structexpression}{expression}} $\ast$ \mbox{\hyperlink{expression_8h_a8ac37ef9a9d80eecc1fe5a3458e66c87}{get\+\_\+next\+\_\+expr}} ()
+\item 
+void \mbox{\hyperlink{expression_8h_a6fe09e4d86150352e7f9b5e16ea5fc33}{free\+\_\+expression}} (struct \mbox{\hyperlink{structexpression}{expression}} $\ast$e)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The interface for the \mbox{\hyperlink{structexpression}{expression}} struct. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{expression_8h_a6fe09e4d86150352e7f9b5e16ea5fc33}\label{expression_8h_a6fe09e4d86150352e7f9b5e16ea5fc33}} 
+\index{expression.h@{expression.h}!free\_expression@{free\_expression}}
+\index{free\_expression@{free\_expression}!expression.h@{expression.h}}
+\doxysubsubsection{\texorpdfstring{free\_expression()}{free\_expression()}}
+{\footnotesize\ttfamily void free\+\_\+expression (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structexpression}{expression}} $\ast$}]{e }\end{DoxyParamCaption})}
+
+Free an expression returned by \mbox{\hyperlink{expression_8h_a8ac37ef9a9d80eecc1fe5a3458e66c87}{get\+\_\+next\+\_\+expr()}} and its children recursively.
+
+
+\begin{DoxyParams}{Parameters}
+{\em E} & Expression returned by \mbox{\hyperlink{expression_8h_a8ac37ef9a9d80eecc1fe5a3458e66c87}{get\+\_\+next\+\_\+expr()}}. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{expression_8h_a8ac37ef9a9d80eecc1fe5a3458e66c87}\label{expression_8h_a8ac37ef9a9d80eecc1fe5a3458e66c87}} 
+\index{expression.h@{expression.h}!get\_next\_expr@{get\_next\_expr}}
+\index{get\_next\_expr@{get\_next\_expr}!expression.h@{expression.h}}
+\doxysubsubsection{\texorpdfstring{get\_next\_expr()}{get\_next\_expr()}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structexpression}{expression}}$\ast$ get\+\_\+next\+\_\+expr (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Advance \mbox{\hyperlink{parser_8h_abb8e57384ed572d0cde4b9dc45d37e86}{parser\+\_\+tokens}} by one expression.~\newline
+ Since the expression is manually allocated, it must be freed using \mbox{\hyperlink{expression_8h_a6fe09e4d86150352e7f9b5e16ea5fc33}{free\+\_\+expression()}}.
+
+\begin{DoxyReturn}{Returns}
+The next expression on the \mbox{\hyperlink{parser_8h_abb8e57384ed572d0cde4b9dc45d37e86}{parser\+\_\+tokens}} array. 
+\end{DoxyReturn}

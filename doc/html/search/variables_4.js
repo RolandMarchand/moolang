@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['tokens_66',['tokens',['../structscan.html#aeb97ca6ebe06af42309df21b48454a64',1,'scan']]],
-  ['type_67',['type',['../structvariant.html#a38855cf95b5da45150b98b33fcdf4ab6',1,'variant']]]
+  ['parser_5ftokens_74',['parser_tokens',['../parser_8h.html#abb8e57384ed572d0cde4b9dc45d37e86',1,'expression.c']]]
 ];

@@ -1,0 +1,58 @@
+.TH "src/parser/expression.h" 3 "Sun Jul 3 2022" "Version 1.0" "Moolang" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/parser/expression.h
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'src/scanner/token\&.h'\fP
+.br
+\fC#include 'parser\&.h'\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBexpression\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "struct \fBexpression\fP * \fBget_next_expr\fP ()"
+.br
+.ti -1c
+.RI "void \fBfree_expression\fP (struct \fBexpression\fP *e)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The interface for the \fBexpression\fP struct\&. 
+.SH "Function Documentation"
+.PP 
+.SS "void free_expression (struct \fBexpression\fP * e)"
+Free an expression returned by \fBget_next_expr()\fP and its children recursively\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIE\fP Expression returned by \fBget_next_expr()\fP\&. 
+.RE
+.PP
+
+.SS "struct \fBexpression\fP* get_next_expr ()"
+Advance \fBparser_tokens\fP by one expression\&.
+.br
+ Since the expression is manually allocated, it must be freed using \fBfree_expression()\fP\&.
+.PP
+\fBReturns\fP
+.RS 4
+The next expression on the \fBparser_tokens\fP array\&. 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Moolang from the source code\&.
