@@ -1,0 +1,42 @@
+.TH "variant" 3 "Sun Jul 3 2022" "Version 1.0" "Moolang" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+variant
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <variant\&.h>\fP
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "union \fBvalue\fP"
+.br
+.in -1c
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "union \fBvariant::value\fP \fBvalue\fP"
+.br
+.ti -1c
+.RI "char \fBtype\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The variant structure\&.
+.br
+ A dynamic data container supporting all of Moolang's types\&.
+.br
+ Variants are allocated using \fBvariant_new()\fP and freed with \fBvariant_del()\fP\&. 
+.SH "Field Documentation"
+.PP 
+.SS "char variant::type"
+The variant's type\&. Possible values are VARIANT_TYPE_{NUMBER,STRING,BOOL}\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Moolang from the source code\&.

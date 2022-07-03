@@ -1,0 +1,233 @@
+.TH "src/parser/variant.h" 3 "Sun Jul 3 2022" "Version 1.0" "Moolang" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/parser/variant.h
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBvariant\fP"
+.br
+.ti -1c
+.RI "union \fBvariant::value\fP"
+.br
+.in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBVARIANT_TYPE_NUMBER\fP   'n'"
+.br
+.ti -1c
+.RI "#define \fBVARIANT_TYPE_STRING\fP   's'"
+.br
+.ti -1c
+.RI "#define \fBVARIANT_TYPE_BOOL\fP   'b'"
+.br
+.ti -1c
+.RI "#define \fBBOOL_YES\fP   'y'"
+.br
+.ti -1c
+.RI "#define \fBBOOL_NO\fP   'n'"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "struct \fBvariant\fP * \fBvariant_new\fP (char type)"
+.br
+.ti -1c
+.RI "void \fBvariant_del\fP (struct \fBvariant\fP *var)"
+.br
+.ti -1c
+.RI "void \fBvariant_set_number\fP (struct \fBvariant\fP *var, double num)"
+.br
+.ti -1c
+.RI "void \fBvariant_set_string\fP (struct \fBvariant\fP *var, char *str)"
+.br
+.ti -1c
+.RI "void \fBvariant_set_bool\fP (struct \fBvariant\fP *var, char b)"
+.br
+.ti -1c
+.RI "double \fBvariant_get_number\fP (struct \fBvariant\fP *var)"
+.br
+.ti -1c
+.RI "char * \fBvariant_get_string\fP (struct \fBvariant\fP *var)"
+.br
+.ti -1c
+.RI "char \fBvariant_get_bool\fP (struct \fBvariant\fP *var)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The interface for the \fBvariant\fP struct, which consists of setters and getters\&.
+.br
+ 
+.SH "Function Documentation"
+.PP 
+.SS "void variant_del (struct \fBvariant\fP * var)"
+Cleanly delete the variant returned by \fBvariant_new()\fP\&.
+.PP
+\fBSee also\fP
+.RS 4
+\fBvariant_new()\fP\&. 
+.PP
+\fBvariant\fP
+.RE
+.PP
+\fBParameters\fP
+.RS 4
+\fIvar,a\fP pointer to the variant to delete\&. 
+.RE
+.PP
+
+.SS "char variant_get_bool (struct \fBvariant\fP * var)"
+Override the current value of the variant with a boolean\&.
+.br
+ Changes the type of the variant to VARIANT_TYPE_BOOLEAN\&.
+.PP
+\fBSee also\fP
+.RS 4
+\fBvariant\fP
+.RE
+.PP
+\fBParameters\fP
+.RS 4
+\fIvar\fP A pointer to the variant holding the returned value\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+\fBvariant::value\&.bool\fP 
+.RE
+.PP
+
+.SS "double variant_get_number (struct \fBvariant\fP * var)"
+Return the value of the variant\&.
+.PP
+\fBSee also\fP
+.RS 4
+\fBvariant\fP
+.RE
+.PP
+\fBParameters\fP
+.RS 4
+\fIvar\fP A pointer to the variant holding the returned value\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+\fBvariant::value\&.number\fP 
+.RE
+.PP
+
+.SS "char* variant_get_string (struct \fBvariant\fP * var)"
+Override the current value of the variant with a boolean\&.
+.br
+ Changes the type of the variant to VARIANT_TYPE_BOOLEAN\&.
+.PP
+\fBSee also\fP
+.RS 4
+\fBvariant\fP
+.RE
+.PP
+\fBParameters\fP
+.RS 4
+\fIvar\fP A pointer to the variant holding the returned value\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+\fBvariant::value\&.string\fP 
+.RE
+.PP
+
+.SS "struct \fBvariant\fP* variant_new (char type)"
+Instance a manually allocated variant of the desired type\&. 
+.br
+This command performs manual memory allocations, and the resulting pointer must be passed to \fBvariant_del()\fP\&. 
+.br
+\fBvariant\&.value\fP is initialized to 0\&.
+.PP
+\fBSee also\fP
+.RS 4
+\fBvariant_del()\fP\&. 
+.PP
+\fBvariant\fP
+.RE
+.PP
+\fBParameters\fP
+.RS 4
+\fIType,the\fP desired type of the variant\&. 
+.br
+possible values are VARIANT_TYPE_[NUMBER STRING BOOL]\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+A pointer to a manually allocated \fBvariant\fP\&. 
+.RE
+.PP
+
+.SS "void variant_set_bool (struct \fBvariant\fP * var, char b)"
+Override the current value of the variant with a boolean\&.
+.br
+ Changes the type of the variant to VARIANT_TYPE_BOOLEAN\&.
+.PP
+\fBSee also\fP
+.RS 4
+\fBvariant\fP
+.RE
+.PP
+\fBParameters\fP
+.RS 4
+\fIvar\fP A pointer to the variant to set the value\&. 
+.br
+\fInum\fP Boolean to set \fBvariant\&.value\fP to\&. 
+.RE
+.PP
+
+.SS "void variant_set_number (struct \fBvariant\fP * var, double num)"
+Override the current value of the variant with a number\&.
+.br
+ Changes the type of the variant to VARIANT_TYPE_NUMBER\&.
+.PP
+\fBSee also\fP
+.RS 4
+\fBvariant\fP
+.RE
+.PP
+\fBParameters\fP
+.RS 4
+\fIvar\fP A pointer to the variant to set the value\&. 
+.br
+\fInum\fP Number to set \fBvariant\&.value\fP to\&. 
+.RE
+.PP
+
+.SS "void variant_set_string (struct \fBvariant\fP * var, char * str)"
+Override the current value of the variant with a string\&.
+.br
+ Changes the type of the variant to VARIANT_TYPE_STRING\&.
+.PP
+\fBSee also\fP
+.RS 4
+\fBvariant\fP
+.RE
+.PP
+\fBParameters\fP
+.RS 4
+\fIvar\fP A pointer to the variant to set the value\&. 
+.br
+\fInum\fP char* to set \fBvariant\&.value\fP to\&. 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Moolang from the source code\&.

@@ -21,6 +21,10 @@
  * SUCH DAMAGE.
  */
 
+/** \file
+    The interface for the \ref variant struct, which consists of setters and getters.<br/>
+*/
+
 #pragma once
 
 #define VARIANT_TYPE_NUMBER 'n'
@@ -30,20 +34,100 @@
 #define BOOL_YES 'y'
 #define BOOL_NO 'n'
 
+/** The variant structure.<br/>
+    A dynamic data container supporting all of Moolang's types.<br/>
+    Variants are allocated using variant_new() and freed with variant_del().
+*/
 struct variant {
+	/** The value union is the variant's payload.<br/>
+	    It holds all variant data types.*/
 	union value {
-		double number;
-		char *string;
-		char bool;
+		double number; /**< All numbers in moolang are double precision floating points.*/
+		char *string; /**< Manually allocated string from variant_new().*/
+		char bool; /**< Can either be BOOL_YES or BOOL_NO.*/
 	} value;
-	char type;
+	char type; /**< The variant's type. Possible values are VARIANT_TYPE_{NUMBER,STRING,BOOL}.*/
 };
 
+/** Instance a manually allocated variant of the desired type.
+    <br/>This command performs manual memory allocations, and the
+    resulting pointer must be passed to variant_del().
+    <br/>variant.value is initialized to 0.
+
+    \sa variant_del().
+    \sa variant
+
+    \param Type, the desired type of the variant.
+    <br>possible values are VARIANT_TYPE_[NUMBER STRING BOOL].
+
+    \return A pointer to a manually allocated \ref variant.
+*/
 struct variant *variant_new(char type);
+
+/** Cleanly delete the variant returned by variant_new().
+
+    \sa variant_new().
+    \sa variant
+
+    \param var, a pointer to the variant to delete.
+*/
 void variant_del(struct variant *var);
+
+/** Override the current value of the variant with a number.<br/>
+    Changes the type of the variant to VARIANT_TYPE_NUMBER.
+
+    \sa variant
+
+    \param var: A pointer to the variant to set the value.
+    \param num: Number to set variant.value to.
+*/
 void variant_set_number(struct variant *var, double num);
-void variant_set_string(struct variant *var, char* str);
+
+/** Override the current value of the variant with a string.<br/>
+    Changes the type of the variant to VARIANT_TYPE_STRING.
+
+    \sa variant
+
+    \param var: A pointer to the variant to set the value.
+    \param num: char* to set variant.value to.
+*/
+void variant_set_string(struct variant *var, char *str);
+
+/** Override the current value of the variant with a boolean.<br/>
+    Changes the type of the variant to VARIANT_TYPE_BOOLEAN.
+
+    \sa variant
+
+    \param var: A pointer to the variant to set the value.
+    \param num: Boolean to set variant.value to.
+*/
 void variant_set_bool(struct variant *var, char b);
-double variant_get_number(struct variant* var);
+
+/** Return the value of the variant.
+
+    \sa variant
+
+    \param var: A pointer to the variant holding the returned value.
+    \return variant::value.number
+*/
+double variant_get_number(struct variant *var);
+
+/** Override the current value of the variant with a boolean.<br/>
+    Changes the type of the variant to VARIANT_TYPE_BOOLEAN.
+
+    \sa variant
+
+    \param var: A pointer to the variant holding the returned value.
+    \return variant::value.string
+*/
 char *variant_get_string(struct variant *var);
-char variant_get_bool(struct variant* var);
+
+/** Override the current value of the variant with a boolean.<br/>
+    Changes the type of the variant to VARIANT_TYPE_BOOLEAN.
+
+    \sa variant
+
+    \param var: A pointer to the variant holding the returned value.
+    \return variant::value.bool
+*/
+char variant_get_bool(struct variant *var);

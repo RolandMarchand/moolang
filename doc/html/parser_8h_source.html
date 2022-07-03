@@ -125,7 +125,7 @@ $(document).ready(function(){initNavTree('parser_8h_source.html',''); initResiza
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &quot;error.h&quot;</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &quot;expression.h&quot;</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="scanner_8h.html">scanner/scanner.h</a>&quot;</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="scanner_8h.html">src/scanner/scanner.h</a>&quot;</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#define CURRENT_LINE *CURRENT_TOKEN.line</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#define CURRENT_TOKEN &amp;parser_tokens.array[0]</span></div>
@@ -136,7 +136,7 @@ $(document).ready(function(){initNavTree('parser_8h_source.html',''); initResiza
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">struct </span><a class="code" href="structexpression.html">expression</a> *parse(<span class="keyword">struct</span> <a class="code" href="structscan.html">scan</a> *s);</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">struct </span><a class="code" href="structtoken.html">token</a> advance();</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keywordtype">int</span> __TOKEN_IS__(<span class="keyword">struct</span> <a class="code" href="structtoken.html">token</a> *tok, TokenType type[]);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keywordtype">int</span> __TOKEN_IS__(<span class="keyword">const</span> <span class="keyword">struct</span> <a class="code" href="structtoken.html">token</a> *tok, <span class="keyword">const</span> TokenType type[]);</div>
 <div class="ttc" id="ascanner_8h_html"><div class="ttname"><a href="scanner_8h.html">scanner.h</a></div></div>
 <div class="ttc" id="astructexpression_html"><div class="ttname"><a href="structexpression.html">expression</a></div><div class="ttdef"><b>Definition:</b> expression.h:30</div></div>
 <div class="ttc" id="astructscan_html"><div class="ttname"><a href="structscan.html">scan</a></div><div class="ttdef"><b>Definition:</b> scanner.h:60</div></div>

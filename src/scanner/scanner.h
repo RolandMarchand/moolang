@@ -74,7 +74,7 @@ struct scan {
 extern struct scan *scan_init(const char *filename);
 
 /** Safely deletes the scan returned from scan_init.<br />Not doing so will result in a memory leak.
-    \sa scan_init
+    \sa scan_init()
     \param s is the scan returned from scan_init() that will be freed.
  */
 extern void scan_del(struct scan *s);

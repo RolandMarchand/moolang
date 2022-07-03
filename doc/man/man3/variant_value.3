@@ -1,0 +1,40 @@
+.TH "variant::value" 3 "Sun Jul 3 2022" "Version 1.0" "Moolang" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+variant::value
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <variant\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "double \fBnumber\fP"
+.br
+.ti -1c
+.RI "char * \fBstring\fP"
+.br
+.ti -1c
+.RI "char \fBbool\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The value union is the variant's payload\&.
+.br
+ It holds all variant data types\&. 
+.SH "Field Documentation"
+.PP 
+.SS "char variant::value::bool"
+Can either be BOOL_YES or BOOL_NO\&. 
+.SS "double variant::value::number"
+All numbers in moolang are double precision floating points\&. 
+.SS "char* variant::value::string"
+Manually allocated string from \fBvariant_new()\fP\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Moolang from the source code\&.

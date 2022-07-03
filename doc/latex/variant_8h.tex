@@ -1,0 +1,211 @@
+\hypertarget{variant_8h}{}\doxysection{src/parser/variant.h File Reference}
+\label{variant_8h}\index{src/parser/variant.h@{src/parser/variant.h}}
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structvariant}{variant}}
+\item 
+union \mbox{\hyperlink{unionvariant_1_1value}{variant\+::value}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{variant_8h_ac06adadf0e0cf1a17506ab08781c8456}\label{variant_8h_ac06adadf0e0cf1a17506ab08781c8456}} 
+\#define {\bfseries VARIANT\+\_\+\+TYPE\+\_\+\+NUMBER}~\textquotesingle{}n\textquotesingle{}
+\item 
+\mbox{\Hypertarget{variant_8h_a6b816ffa55ee4ab44f3fff0cf168f5ab}\label{variant_8h_a6b816ffa55ee4ab44f3fff0cf168f5ab}} 
+\#define {\bfseries VARIANT\+\_\+\+TYPE\+\_\+\+STRING}~\textquotesingle{}s\textquotesingle{}
+\item 
+\mbox{\Hypertarget{variant_8h_aa8f385f0b70791a2a6406c5cbe0a5c2d}\label{variant_8h_aa8f385f0b70791a2a6406c5cbe0a5c2d}} 
+\#define {\bfseries VARIANT\+\_\+\+TYPE\+\_\+\+BOOL}~\textquotesingle{}b\textquotesingle{}
+\item 
+\mbox{\Hypertarget{variant_8h_a88068f7103a73ee962d485dd1fbd6708}\label{variant_8h_a88068f7103a73ee962d485dd1fbd6708}} 
+\#define {\bfseries BOOL\+\_\+\+YES}~\textquotesingle{}y\textquotesingle{}
+\item 
+\mbox{\Hypertarget{variant_8h_a175ef4bd2878c9a02e2ba66d80055f84}\label{variant_8h_a175ef4bd2878c9a02e2ba66d80055f84}} 
+\#define {\bfseries BOOL\+\_\+\+NO}~\textquotesingle{}n\textquotesingle{}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structvariant}{variant}} $\ast$ \mbox{\hyperlink{variant_8h_a99f107235b211fa5abf48766c54e23bb}{variant\+\_\+new}} (char type)
+\item 
+void \mbox{\hyperlink{variant_8h_a31e225015f62ca99e41b2a98eea686a1}{variant\+\_\+del}} (struct \mbox{\hyperlink{structvariant}{variant}} $\ast$var)
+\item 
+void \mbox{\hyperlink{variant_8h_a3afc36f0e288b5b76e85308ddd9b34a5}{variant\+\_\+set\+\_\+number}} (struct \mbox{\hyperlink{structvariant}{variant}} $\ast$var, double num)
+\item 
+void \mbox{\hyperlink{variant_8h_abece06535f1f787cbd2e56a08d187435}{variant\+\_\+set\+\_\+string}} (struct \mbox{\hyperlink{structvariant}{variant}} $\ast$var, char $\ast$str)
+\item 
+void \mbox{\hyperlink{variant_8h_aa7491fa2ac300afe3e13c8bbe4bc41e0}{variant\+\_\+set\+\_\+bool}} (struct \mbox{\hyperlink{structvariant}{variant}} $\ast$var, char b)
+\item 
+double \mbox{\hyperlink{variant_8h_a8a1b79f11bde614a3fed28e48e75aee9}{variant\+\_\+get\+\_\+number}} (struct \mbox{\hyperlink{structvariant}{variant}} $\ast$var)
+\item 
+char $\ast$ \mbox{\hyperlink{variant_8h_a3b4e673c88044b13d3f05fe88dea16f4}{variant\+\_\+get\+\_\+string}} (struct \mbox{\hyperlink{structvariant}{variant}} $\ast$var)
+\item 
+char \mbox{\hyperlink{variant_8h_abb4ef7bec2670bb97d58cc541286b385}{variant\+\_\+get\+\_\+bool}} (struct \mbox{\hyperlink{structvariant}{variant}} $\ast$var)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The interface for the \mbox{\hyperlink{structvariant}{variant}} struct, which consists of setters and getters.~\newline
+ 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{variant_8h_a31e225015f62ca99e41b2a98eea686a1}\label{variant_8h_a31e225015f62ca99e41b2a98eea686a1}} 
+\index{variant.h@{variant.h}!variant\_del@{variant\_del}}
+\index{variant\_del@{variant\_del}!variant.h@{variant.h}}
+\doxysubsubsection{\texorpdfstring{variant\_del()}{variant\_del()}}
+{\footnotesize\ttfamily void variant\+\_\+del (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structvariant}{variant}} $\ast$}]{var }\end{DoxyParamCaption})}
+
+Cleanly delete the variant returned by \mbox{\hyperlink{variant_8h_a99f107235b211fa5abf48766c54e23bb}{variant\+\_\+new()}}.
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{variant_8h_a99f107235b211fa5abf48766c54e23bb}{variant\+\_\+new()}}. 
+
+\mbox{\hyperlink{structvariant}{variant}}
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em var,a} & pointer to the variant to delete. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{variant_8h_abb4ef7bec2670bb97d58cc541286b385}\label{variant_8h_abb4ef7bec2670bb97d58cc541286b385}} 
+\index{variant.h@{variant.h}!variant\_get\_bool@{variant\_get\_bool}}
+\index{variant\_get\_bool@{variant\_get\_bool}!variant.h@{variant.h}}
+\doxysubsubsection{\texorpdfstring{variant\_get\_bool()}{variant\_get\_bool()}}
+{\footnotesize\ttfamily char variant\+\_\+get\+\_\+bool (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structvariant}{variant}} $\ast$}]{var }\end{DoxyParamCaption})}
+
+Override the current value of the variant with a boolean.~\newline
+ Changes the type of the variant to VARIANT\+\_\+\+TYPE\+\_\+\+BOOLEAN.
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{structvariant}{variant}}
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em var} & A pointer to the variant holding the returned value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{unionvariant_1_1value_a937ea4d9e303c3b55884bed99ca816a8}{variant\+::value.\+bool}} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{variant_8h_a8a1b79f11bde614a3fed28e48e75aee9}\label{variant_8h_a8a1b79f11bde614a3fed28e48e75aee9}} 
+\index{variant.h@{variant.h}!variant\_get\_number@{variant\_get\_number}}
+\index{variant\_get\_number@{variant\_get\_number}!variant.h@{variant.h}}
+\doxysubsubsection{\texorpdfstring{variant\_get\_number()}{variant\_get\_number()}}
+{\footnotesize\ttfamily double variant\+\_\+get\+\_\+number (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structvariant}{variant}} $\ast$}]{var }\end{DoxyParamCaption})}
+
+Return the value of the variant.
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{structvariant}{variant}}
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em var} & A pointer to the variant holding the returned value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{unionvariant_1_1value_a4a32ea03ac3be484c544d6f9db013604}{variant\+::value.\+number}} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{variant_8h_a3b4e673c88044b13d3f05fe88dea16f4}\label{variant_8h_a3b4e673c88044b13d3f05fe88dea16f4}} 
+\index{variant.h@{variant.h}!variant\_get\_string@{variant\_get\_string}}
+\index{variant\_get\_string@{variant\_get\_string}!variant.h@{variant.h}}
+\doxysubsubsection{\texorpdfstring{variant\_get\_string()}{variant\_get\_string()}}
+{\footnotesize\ttfamily char$\ast$ variant\+\_\+get\+\_\+string (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structvariant}{variant}} $\ast$}]{var }\end{DoxyParamCaption})}
+
+Override the current value of the variant with a boolean.~\newline
+ Changes the type of the variant to VARIANT\+\_\+\+TYPE\+\_\+\+BOOLEAN.
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{structvariant}{variant}}
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em var} & A pointer to the variant holding the returned value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{unionvariant_1_1value_a60473b2cd66a4dc7b75bf893c52b6d31}{variant\+::value.\+string}} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{variant_8h_a99f107235b211fa5abf48766c54e23bb}\label{variant_8h_a99f107235b211fa5abf48766c54e23bb}} 
+\index{variant.h@{variant.h}!variant\_new@{variant\_new}}
+\index{variant\_new@{variant\_new}!variant.h@{variant.h}}
+\doxysubsubsection{\texorpdfstring{variant\_new()}{variant\_new()}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structvariant}{variant}}$\ast$ variant\+\_\+new (\begin{DoxyParamCaption}\item[{char}]{type }\end{DoxyParamCaption})}
+
+Instance a manually allocated variant of the desired type. ~\newline
+This command performs manual memory allocations, and the resulting pointer must be passed to \mbox{\hyperlink{variant_8h_a31e225015f62ca99e41b2a98eea686a1}{variant\+\_\+del()}}. ~\newline
+\mbox{\hyperlink{unionvariant_1_1value}{variant.\+value}} is initialized to 0.
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{variant_8h_a31e225015f62ca99e41b2a98eea686a1}{variant\+\_\+del()}}. 
+
+\mbox{\hyperlink{structvariant}{variant}}
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em Type,the} & desired type of the variant. ~\newline
+possible values are VARIANT\+\_\+\+TYPE\+\_\+\mbox{[}NUMBER STRING BOOL\mbox{]}.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pointer to a manually allocated \mbox{\hyperlink{structvariant}{variant}}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{variant_8h_aa7491fa2ac300afe3e13c8bbe4bc41e0}\label{variant_8h_aa7491fa2ac300afe3e13c8bbe4bc41e0}} 
+\index{variant.h@{variant.h}!variant\_set\_bool@{variant\_set\_bool}}
+\index{variant\_set\_bool@{variant\_set\_bool}!variant.h@{variant.h}}
+\doxysubsubsection{\texorpdfstring{variant\_set\_bool()}{variant\_set\_bool()}}
+{\footnotesize\ttfamily void variant\+\_\+set\+\_\+bool (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structvariant}{variant}} $\ast$}]{var,  }\item[{char}]{b }\end{DoxyParamCaption})}
+
+Override the current value of the variant with a boolean.~\newline
+ Changes the type of the variant to VARIANT\+\_\+\+TYPE\+\_\+\+BOOLEAN.
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{structvariant}{variant}}
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em var} & A pointer to the variant to set the value. \\
+\hline
+{\em num} & Boolean to set \mbox{\hyperlink{unionvariant_1_1value}{variant.\+value}} to. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{variant_8h_a3afc36f0e288b5b76e85308ddd9b34a5}\label{variant_8h_a3afc36f0e288b5b76e85308ddd9b34a5}} 
+\index{variant.h@{variant.h}!variant\_set\_number@{variant\_set\_number}}
+\index{variant\_set\_number@{variant\_set\_number}!variant.h@{variant.h}}
+\doxysubsubsection{\texorpdfstring{variant\_set\_number()}{variant\_set\_number()}}
+{\footnotesize\ttfamily void variant\+\_\+set\+\_\+number (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structvariant}{variant}} $\ast$}]{var,  }\item[{double}]{num }\end{DoxyParamCaption})}
+
+Override the current value of the variant with a number.~\newline
+ Changes the type of the variant to VARIANT\+\_\+\+TYPE\+\_\+\+NUMBER.
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{structvariant}{variant}}
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em var} & A pointer to the variant to set the value. \\
+\hline
+{\em num} & Number to set \mbox{\hyperlink{unionvariant_1_1value}{variant.\+value}} to. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{variant_8h_abece06535f1f787cbd2e56a08d187435}\label{variant_8h_abece06535f1f787cbd2e56a08d187435}} 
+\index{variant.h@{variant.h}!variant\_set\_string@{variant\_set\_string}}
+\index{variant\_set\_string@{variant\_set\_string}!variant.h@{variant.h}}
+\doxysubsubsection{\texorpdfstring{variant\_set\_string()}{variant\_set\_string()}}
+{\footnotesize\ttfamily void variant\+\_\+set\+\_\+string (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structvariant}{variant}} $\ast$}]{var,  }\item[{char $\ast$}]{str }\end{DoxyParamCaption})}
+
+Override the current value of the variant with a string.~\newline
+ Changes the type of the variant to VARIANT\+\_\+\+TYPE\+\_\+\+STRING.
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{structvariant}{variant}}
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em var} & A pointer to the variant to set the value. \\
+\hline
+{\em num} & char$\ast$ to set \mbox{\hyperlink{unionvariant_1_1value}{variant.\+value}} to. \\
+\hline
+\end{DoxyParams}

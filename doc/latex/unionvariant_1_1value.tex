@@ -1,0 +1,45 @@
+\hypertarget{unionvariant_1_1value}{}\doxysection{variant\+::value Union Reference}
+\label{unionvariant_1_1value}\index{variant::value@{variant::value}}
+
+
+{\ttfamily \#include $<$variant.\+h$>$}
+
+\doxysubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{unionvariant_1_1value_a4a32ea03ac3be484c544d6f9db013604}{number}}
+\item 
+char $\ast$ \mbox{\hyperlink{unionvariant_1_1value_a60473b2cd66a4dc7b75bf893c52b6d31}{string}}
+\item 
+char \mbox{\hyperlink{unionvariant_1_1value_a937ea4d9e303c3b55884bed99ca816a8}{bool}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The value union is the variant\textquotesingle{}s payload.~\newline
+ It holds all variant data types. 
+
+\doxysubsection{Field Documentation}
+\mbox{\Hypertarget{unionvariant_1_1value_a937ea4d9e303c3b55884bed99ca816a8}\label{unionvariant_1_1value_a937ea4d9e303c3b55884bed99ca816a8}} 
+\index{variant::value@{variant::value}!bool@{bool}}
+\index{bool@{bool}!variant::value@{variant::value}}
+\doxysubsubsection{\texorpdfstring{bool}{bool}}
+{\footnotesize\ttfamily char variant\+::value\+::bool}
+
+Can either be BOOL\+\_\+\+YES or BOOL\+\_\+\+NO. \mbox{\Hypertarget{unionvariant_1_1value_a4a32ea03ac3be484c544d6f9db013604}\label{unionvariant_1_1value_a4a32ea03ac3be484c544d6f9db013604}} 
+\index{variant::value@{variant::value}!number@{number}}
+\index{number@{number}!variant::value@{variant::value}}
+\doxysubsubsection{\texorpdfstring{number}{number}}
+{\footnotesize\ttfamily double variant\+::value\+::number}
+
+All numbers in moolang are double precision floating points. \mbox{\Hypertarget{unionvariant_1_1value_a60473b2cd66a4dc7b75bf893c52b6d31}\label{unionvariant_1_1value_a60473b2cd66a4dc7b75bf893c52b6d31}} 
+\index{variant::value@{variant::value}!string@{string}}
+\index{string@{string}!variant::value@{variant::value}}
+\doxysubsubsection{\texorpdfstring{string}{string}}
+{\footnotesize\ttfamily char$\ast$ variant\+::value\+::string}
+
+Manually allocated string from \mbox{\hyperlink{variant_8h_a99f107235b211fa5abf48766c54e23bb}{variant\+\_\+new()}}. 
+
+The documentation for this union was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/parser/\mbox{\hyperlink{variant_8h}{variant.\+h}}\end{DoxyCompactItemize}

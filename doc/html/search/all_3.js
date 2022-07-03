@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['token_8',['token',['../structtoken.html',1,'']]],
-  ['token_5farray_9',['token_array',['../structtoken__array.html',1,'']]],
-  ['tokens_10',['tokens',['../structscan.html#aeb97ca6ebe06af42309df21b48454a64',1,'scan']]]
+  ['number_3',['number',['../unionvariant_1_1value.html#a4a32ea03ac3be484c544d6f9db013604',1,'variant::value']]]
 ];
