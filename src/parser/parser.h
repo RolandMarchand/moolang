@@ -42,14 +42,14 @@ an argument.<br/>
 Calls \ref \_\_TOKEN_IS\_\_().
 */
 
-
 extern struct token_array parser_tokens; /**< global \ref token_array used to
 orchestrate the rest of the library.<br/>
 Gets manipulated by the \ref parser_advance() function.
 */
 
-
-/** The parser's main function.
+/** The parser's main function.<br/><br/>
+    __TODO__: The parser returns an expression, but it should return the root statement.<br/>
+    They have not been implemented yet.
     \param S: The scanned source code and the token arrays.
     \return The program's abstract syntax tree.
 */

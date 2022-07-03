@@ -63,7 +63,7 @@ static struct expression *equality()
 	struct expression *left = comparison();
 
 	while (CURRENT_TOKEN_IS(BANG_EQUAL, EQUAL_EQUAL)) {
-		struct token operator = advance();
+		struct token operator = parser_advance();
 		struct expression *right = comparison();
 
 		struct expression *expr = malloc(sizeof(struct expression));
@@ -87,7 +87,7 @@ static struct expression *comparison()
 
 	while (CURRENT_TOKEN_IS(\
 			GREATER, GREATER_EQUAL, LESS, LESS_EQUAL)) {
-		struct token operator = advance();
+		struct token operator = parser_advance();
 		struct expression *right = term();
 
 		struct expression *expr = malloc(sizeof(struct expression));
@@ -110,7 +110,7 @@ static struct expression *term()
 	struct expression *left = factor();
 
 	while (CURRENT_TOKEN_IS(PLUS, MINUS)) {
-		struct token operator = advance();
+		struct token operator = parser_advance();
 		struct expression *right = factor();
 
 		struct expression *expr = malloc(sizeof(struct expression));
@@ -133,7 +133,7 @@ static struct expression *factor()
 	struct expression *left = unary();
 
 	while (CURRENT_TOKEN_IS(STAR, SLASH)) {
-		struct token operator = advance();
+		struct token operator = parser_advance();
 		struct expression *right = unary();
 
 		struct expression *expr = malloc(sizeof(struct expression));
@@ -154,7 +154,7 @@ static struct expression *factor()
 static struct expression *unary()
 {
 	while (CURRENT_TOKEN_IS(BANG, MINUS)) {
-		struct token operator = advance();
+		struct token operator = parser_advance();
 		struct expression *right = unary();
 
 		struct expression *expr = malloc(sizeof(struct expression));
@@ -177,7 +177,7 @@ static struct expression *primary()
 		struct expression *lit = malloc(sizeof(struct expression));
 		ASSERT(lit != NULL, "Failed to allocate memory.");
 
-		lit->operator = advance();
+		lit->operator = parser_advance();
 		lit->left = NULL;
 		lit->right = NULL;
 
@@ -190,7 +190,7 @@ static struct expression *primary()
 		exit(1);
 	}
 
-	advance();
+	parser_advance();
 	struct expression *expr = expression();
 
 	if (!CURRENT_TOKEN_IS(RIGHT_PAREN)) {
@@ -199,6 +199,6 @@ static struct expression *primary()
 		exit(1);
 	}
 
-	advance();
+	parser_advance();
 	return expr;
 }

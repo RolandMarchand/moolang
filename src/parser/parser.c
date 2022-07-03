@@ -34,7 +34,7 @@ struct expression *parse(struct scan *s)
 	return e;
 }
 
-struct token advance()
+struct token parser_advance()
 {
 	ASSERT(parser_tokens.count > 0, "Not enough tokens.");
 

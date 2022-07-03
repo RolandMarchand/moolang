@@ -48,12 +48,12 @@ void report(int line, char *message)
 
 void synchronize()
 {
-	advance();
+	parser_advance();
 
 	while (!CURRENT_TOKEN_IS(END_OF_FILE)) {
 		switch (*CURRENT_TOKEN.type) {
 		case SEMICOLON:
-			advance();
+			parser_advance();
 		case BLUEPRINT:
 		case PROCEDURE:
 		case IF:
@@ -63,7 +63,7 @@ void synchronize()
 		case PRODUCE:
 			return;
 		default:
-			advance();
+			parser_advance();
 		}
 	}
 }
