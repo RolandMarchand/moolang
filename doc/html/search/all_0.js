@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['bool_0',['bool',['../unionvariant_1_1value.html#a937ea4d9e303c3b55884bed99ca816a8',1,'variant::value']]]
+  ['_5f_5ftoken_5fis_5f_5f_0',['__TOKEN_IS__',['../parser_8h.html#a1162865a264813d1eb7e32d23c4fe17c',1,'parser.c']]]
 ];

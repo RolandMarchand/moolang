@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['scan_5fdel_41',['scan_del',['../scanner_8h.html#aa02d14e746bd0648c78532a4e557021e',1,'scanner.c']]],
-  ['scan_5finit_42',['scan_init',['../scanner_8h.html#a104e45ed7a9211ff59807e2585c538a5',1,'scanner.c']]]
+  ['_5f_5ftoken_5fis_5f_5f_48',['__TOKEN_IS__',['../parser_8h.html#a1162865a264813d1eb7e32d23c4fe17c',1,'parser.c']]]
 ];

@@ -97,7 +97,7 @@ $(document).ready(function(){initNavTree('parser_8h_source.html',''); initResiza
 <div class="title">parser.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
+<a href="parser_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * Copyright (c) 2022, Roland Marchand &lt;roland.marchand@protonmail.com&gt;</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * Redistribution and use in source and binary forms, with or without</span></div>
@@ -120,23 +120,27 @@ $(document).ready(function(){initNavTree('parser_8h_source.html',''); initResiza
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> * SUCH DAMAGE.</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> */</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &quot;error.h&quot;</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &quot;expression.h&quot;</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="scanner_8h.html">src/scanner/scanner.h</a>&quot;</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#define CURRENT_LINE *CURRENT_TOKEN.line</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#define CURRENT_TOKEN &amp;parser_tokens.array[0]</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#define CURRENT_TOKEN_IS(...) __TOKEN_IS__(CURRENT_TOKEN,               \</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">                                           (TokenType[]){__VA_ARGS__, -1})</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;error.h&quot;</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;expression.h&quot;</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="scanner_8h.html">src/scanner/scanner.h</a>&quot;</span></div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">extern</span> <span class="keyword">struct </span><a class="code" href="structtoken__array.html">token_array</a> parser_tokens;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">struct </span><a class="code" href="structexpression.html">expression</a> *parse(<span class="keyword">struct</span> <a class="code" href="structscan.html">scan</a> *s);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">struct </span><a class="code" href="structtoken.html">token</a> advance();</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keywordtype">int</span> __TOKEN_IS__(<span class="keyword">const</span> <span class="keyword">struct</span> <a class="code" href="structtoken.html">token</a> *tok, <span class="keyword">const</span> TokenType type[]);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#define CURRENT_LINE *CURRENT_TOKEN.line</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#define CURRENT_TOKEN &amp;parser_tokens.array[0]</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#define CURRENT_TOKEN_IS(...)                                           \</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">        __TOKEN_IS__(CURRENT_TOKEN, (TokenType[]){__VA_ARGS__, -1})</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">extern</span> <span class="keyword">struct </span><a class="code" href="structtoken__array.html">token_array</a> <a class="code" href="parser_8h.html#abb8e57384ed572d0cde4b9dc45d37e86">parser_tokens</a>; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keyword">struct </span><a class="code" href="structexpression.html">expression</a> *<a class="code" href="parser_8h.html#a8cf61866ae2316e5975e95d5e0c9c323">parse</a>(<span class="keyword">struct</span> <a class="code" href="structscan.html">scan</a> *s);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keyword">struct </span><a class="code" href="structtoken.html">token</a> <a class="code" href="parser_8h.html#af819e0c46cc7b24f481527106df02af4">parser_advance</a>();</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="keywordtype">int</span> <a class="code" href="parser_8h.html#a1162865a264813d1eb7e32d23c4fe17c">__TOKEN_IS__</a>(<span class="keyword">const</span> <span class="keyword">struct</span> <a class="code" href="structtoken.html">token</a> *tok, <span class="keyword">const</span> TokenType type[]);</div>
+<div class="ttc" id="aparser_8h_html_a1162865a264813d1eb7e32d23c4fe17c"><div class="ttname"><a href="parser_8h.html#a1162865a264813d1eb7e32d23c4fe17c">__TOKEN_IS__</a></div><div class="ttdeci">int __TOKEN_IS__(const struct token *tok, const TokenType type[])</div><div class="ttdef"><b>Definition:</b> parser.c:53</div></div>
+<div class="ttc" id="aparser_8h_html_a8cf61866ae2316e5975e95d5e0c9c323"><div class="ttname"><a href="parser_8h.html#a8cf61866ae2316e5975e95d5e0c9c323">parse</a></div><div class="ttdeci">struct expression * parse(struct scan *s)</div><div class="ttdef"><b>Definition:</b> parser.c:29</div></div>
+<div class="ttc" id="aparser_8h_html_abb8e57384ed572d0cde4b9dc45d37e86"><div class="ttname"><a href="parser_8h.html#abb8e57384ed572d0cde4b9dc45d37e86">parser_tokens</a></div><div class="ttdeci">struct token_array parser_tokens</div><div class="ttdef"><b>Definition:</b> expression.c:33</div></div>
+<div class="ttc" id="aparser_8h_html_af819e0c46cc7b24f481527106df02af4"><div class="ttname"><a href="parser_8h.html#af819e0c46cc7b24f481527106df02af4">parser_advance</a></div><div class="ttdeci">struct token parser_advance()</div></div>
 <div class="ttc" id="ascanner_8h_html"><div class="ttname"><a href="scanner_8h.html">scanner.h</a></div></div>
 <div class="ttc" id="astructexpression_html"><div class="ttname"><a href="structexpression.html">expression</a></div><div class="ttdef"><b>Definition:</b> expression.h:30</div></div>
 <div class="ttc" id="astructscan_html"><div class="ttname"><a href="structscan.html">scan</a></div><div class="ttdef"><b>Definition:</b> scanner.h:60</div></div>
@@ -147,7 +151,7 @@ $(document).ready(function(){initNavTree('parser_8h_source.html',''); initResiza
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_6cd8491d143eb218b70983dbdb3c58bc.html">parser</a></li><li class="navelem"><b>parser.h</b></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_6cd8491d143eb218b70983dbdb3c58bc.html">parser</a></li><li class="navelem"><a class="el" href="parser_8h.html">parser.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>

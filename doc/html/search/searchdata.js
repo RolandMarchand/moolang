@@ -1,10 +1,11 @@
 var indexSectionsWithContent =
 {
-  0: "bemnstv",
+  0: "_bcemnpstv",
   1: "estv",
-  2: "msv",
-  3: "sv",
-  4: "bnst"
+  2: "mpsv",
+  3: "_psv",
+  4: "bnpst",
+  5: "c"
 };
 
 var indexSectionNames =
@@ -13,7 +14,8 @@ var indexSectionNames =
   1: "classes",
   2: "files",
   3: "functions",
-  4: "variables"
+  4: "variables",
+  5: "defines"
 };
 
 var indexSectionLabels =
@@ -22,6 +24,7 @@ var indexSectionLabels =
   1: "Data Structures",
   2: "Files",
   3: "Functions",
-  4: "Variables"
+  4: "Variables",
+  5: "Macros"
 };
 

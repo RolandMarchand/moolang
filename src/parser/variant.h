@@ -22,7 +22,7 @@
  */
 
 /** \file
-    The interface for the \ref variant struct, which consists of setters and getters.<br/>
+    The interface for the \ref variant struct, which consists of setters and getters.
 */
 
 #pragma once
@@ -60,7 +60,7 @@ struct variant {
     \param Type, the desired type of the variant.
     <br>possible values are VARIANT_TYPE_[NUMBER STRING BOOL].
 
-    \return A pointer to a manually allocated \ref variant.
+    \return Variant: Pointer to a manually allocated \ref variant.
 */
 struct variant *variant_new(char type);
 
