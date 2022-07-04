@@ -36,31 +36,29 @@ void report(int line, char *message)
 	error_status = 1;
 
 	if (CURRENT_TOKEN_IS(END_OF_FILE)) {
-		fprintf(stderr, "%d at end: %s", line, message);
+		fprintf(stderr, "%d at end: %s\n", line, message);
 		return;
 	}
 
 	char lexeme[SUBSTRING_LENGTH(*CURRENT_TOKEN.lexeme) + 1];
 	sbstrcpy(CURRENT_TOKEN.lexeme, lexeme);
 
-	fprintf(stderr, "%d at %s: %s", line, lexeme, message);
+	fprintf(stderr, "%d at %s: %s\n", line, lexeme, message);
 }
 
 void synchronize()
 {
-	parser_advance();
-
 	while (!CURRENT_TOKEN_IS(END_OF_FILE)) {
 		switch (*CURRENT_TOKEN.type) {
 		case SEMICOLON:
 			parser_advance();
 		case BLUEPRINT:
-		case PROCEDURE:
-		case IF:
-		case WHILE:
 		case FLUID:
-		case WRITE:
+		case IF:
+		case PROCEDURE:
 		case PRODUCE:
+		case WHILE:
+		case WRITE:
 			return;
 		default:
 			parser_advance();
