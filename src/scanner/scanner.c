@@ -230,7 +230,7 @@ static struct token identifier()
 	while (IS_ALPHA(current[0]) || IS_DIGIT(current[0])) advance();
 
 	struct substring *sbstr = &(struct substring){.start=start, .end=current};
-	int s = SUBSTRING_LENGTH((*sbstr)) + 1; // +1 for '\0'
+	int s = SUBSTRING_LENGTH((*sbstr)) + 1; /* +1 for '\0' */
 	char str[s];
 	sbstrcpy(sbstr, str);
 
@@ -238,7 +238,7 @@ static struct token identifier()
 	return GET_TOKEN(t);
 }
 
-// TODO: Replace this by a hash table
+/* TODO: Replace this with a hash table */
 TokenType get_keyword_type(const char *str)
 {
 #define GET(kwstr, tk) if (strcmp(str, kwstr) == 0) return tk;

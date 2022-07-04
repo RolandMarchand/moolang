@@ -26,8 +26,13 @@
 #include "parser.h"
 #include "src/scanner/token.h"
 
+
+
 struct statement {
-	struct token l_token;
 	struct expression *expression;
-	struct token r_token;
+	struct token *l_token;
+	struct token *r_token;
 };
+
+struct statement *get_next_stmt();
+void free_statement(struct statement *s);

@@ -24,12 +24,14 @@
 /** \file
     The root file of the parser library.<br/>
     It declares functions related to the \ref source file's global \ref token_array.
- */
+*/
 
 #pragma once
 
 #include "error.h"
 #include "expression.h"
+#include "statement.h"
+#include "statement_array.h"
 
 #include "src/scanner/scanner.h"
 
@@ -38,14 +40,14 @@
 #define CURRENT_TOKEN_IS(...)						\
 	__TOKEN_IS__(CURRENT_TOKEN, (TokenType[]){__VA_ARGS__, -1})
 /**< Variadic-length macro comparing the current token with every token given as
-an argument.<br/>
-Calls \ref \_\_TOKEN_IS\_\_().
+   an argument.<br/>
+   Calls \ref \_\_TOKEN_IS\_\_().
 */
 
 extern struct token_array parser_tokens; /**< global \ref token_array used to
-orchestrate the rest of the library.<br/>
-Gets manipulated by the \ref parser_advance() function.
-*/
+					    orchestrate the rest of the library.<br/>
+					    Gets manipulated by the \ref parser_advance() function.
+					 */
 
 /** The parser's main function.<br/><br/>
     __TODO__: The parser returns an expression, but it should return the root statement.<br/>
@@ -53,12 +55,12 @@ Gets manipulated by the \ref parser_advance() function.
     \param S: The scanned source code and the token arrays.
     \return The program's abstract syntax tree.
 */
-struct expression *parse(struct scan *s);
+struct statement_array *parse(struct scan *s);
 
 /** Advance \ref parser_tokens.
     \return Token: The \ref token that was advanced by.
 */
-struct token parser_advance();
+struct token *parser_advance();
 
 /** Used by the variadic-length macro \ref CURRENT_TOKEN_IS.<br/>
     Do not use this function manually.

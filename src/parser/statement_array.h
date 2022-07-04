@@ -29,11 +29,11 @@
 #define STATEMENT_ARRAY_BUFFER_COUNT 8
 
 struct statement_array {
-	struct statement *array;
+	struct statement **array;
 	int size;
 	int count;
 };
 
 extern struct statement_array *statement_array_init();
-extern void statement_array_add(struct statement_array *sa, struct statement t);
+extern void statement_array_add(struct statement_array *sa, struct statement *s);
 extern void statement_array_del(struct statement_array *sa);

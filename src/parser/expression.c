@@ -63,7 +63,7 @@ static struct expression *equality()
 	struct expression *left = comparison();
 
 	while (CURRENT_TOKEN_IS(BANG_EQUAL, EQUAL_EQUAL)) {
-		struct token operator = parser_advance();
+		struct token *operator = parser_advance();
 		struct expression *right = comparison();
 
 		struct expression *expr = malloc(sizeof(struct expression));
@@ -87,7 +87,7 @@ static struct expression *comparison()
 
 	while (CURRENT_TOKEN_IS(\
 			GREATER, GREATER_EQUAL, LESS, LESS_EQUAL)) {
-		struct token operator = parser_advance();
+		struct token *operator = parser_advance();
 		struct expression *right = term();
 
 		struct expression *expr = malloc(sizeof(struct expression));
@@ -110,7 +110,7 @@ static struct expression *term()
 	struct expression *left = factor();
 
 	while (CURRENT_TOKEN_IS(PLUS, MINUS)) {
-		struct token operator = parser_advance();
+		struct token *operator = parser_advance();
 		struct expression *right = factor();
 
 		struct expression *expr = malloc(sizeof(struct expression));
@@ -133,7 +133,7 @@ static struct expression *factor()
 	struct expression *left = unary();
 
 	while (CURRENT_TOKEN_IS(STAR, SLASH)) {
-		struct token operator = parser_advance();
+		struct token *operator = parser_advance();
 		struct expression *right = unary();
 
 		struct expression *expr = malloc(sizeof(struct expression));
@@ -154,7 +154,7 @@ static struct expression *factor()
 static struct expression *unary()
 {
 	while (CURRENT_TOKEN_IS(BANG, MINUS)) {
-		struct token operator = parser_advance();
+		struct token *operator = parser_advance();
 		struct expression *right = unary();
 
 		struct expression *expr = malloc(sizeof(struct expression));
@@ -173,7 +173,7 @@ static struct expression *unary()
 
 static struct expression *primary()
 {
-	if (CURRENT_TOKEN_IS(YES, NO, NIL, NUMBER, STRING)) {
+	if (CURRENT_TOKEN_IS(IDENTIFIER, YES, NO, NIL, NUMBER, STRING)) {
 		struct expression *lit = malloc(sizeof(struct expression));
 		ASSERT(lit != NULL, "Failed to allocate memory.");
 
@@ -194,8 +194,6 @@ static struct expression *primary()
 	struct expression *expr = expression();
 
 	if (!CURRENT_TOKEN_IS(RIGHT_PAREN)) {
-		// Synchronize.
-		fprintf(stderr, "No right parenthesis found.");
 		exit(1);
 	}
 

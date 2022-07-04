@@ -37,7 +37,7 @@ struct statement_array *statement_array_init()
 	ASSERT(sa != NULL, "Unable to allocate memory for statement_array.");
 
 	sa->count = 0;
-	sa->size = STATEMENT_ARRAY_BUFFER_COUNT * sizeof(struct statement);
+	sa->size = STATEMENT_ARRAY_BUFFER_COUNT * sizeof(struct statement *);
 	sa->array = malloc(sa->size);
 
 	ASSERT(sa->array != NULL, "Unable to allocate memory for statement_array.");
@@ -45,7 +45,7 @@ struct statement_array *statement_array_init()
 	return sa;
 }
 
-void statement_array_add(struct statement_array *sa, struct statement s)
+void statement_array_add(struct statement_array *sa, struct statement *s)
 {
 	if (sa->count == (sa->size / sizeof(struct statement)))
 		statement_array_grow(sa);
@@ -63,6 +63,8 @@ static void statement_array_grow(struct statement_array *sa)
 
 void statement_array_del(struct statement_array *sa)
 {
+	for (int i = 0; sa->count > 0; sa->count--, i++)
+		free_statement(sa->array[i]);
 	free(sa->array);
 	free(sa);
 	sa = NULL;

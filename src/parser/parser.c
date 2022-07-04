@@ -22,23 +22,23 @@
  */
 
 #include "parser.h"
-#include "expression_printer.h"
 
 #include "src/macros.h"
 
-struct expression *parse(struct scan *s)
+struct statement_array *parse(struct scan *s)
 {
 	parser_tokens = *(s->tokens);
-	struct expression *e = get_next_expr();
-	PRINT_EXPRESSION(e);
-	return e;
+	struct statement_array *sa = statement_array_init();
+	for (struct statement *s = get_next_stmt(); s != NULL; s = get_next_stmt())
+		statement_array_add(sa, s);
+	return sa;
 }
 
-struct token parser_advance()
+struct token *parser_advance()
 {
 	ASSERT(parser_tokens.count > 0, "Not enough tokens.");
 
-	struct token t = *CURRENT_TOKEN;
+	struct token *t = CURRENT_TOKEN;
 
 	if (parser_tokens.count == 1)
 		return t;

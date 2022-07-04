@@ -81,7 +81,7 @@ int main(int argc, char *argv[])
 	assert(argc == 2);
 
 	struct scan *s = scan_init(argv[1]);
-	struct expression *e = parse(s);
-	free_expression(e);
+	struct statement_array *e = parse(s);
+
 	scan_del(s);
 }

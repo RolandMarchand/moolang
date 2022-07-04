@@ -31,7 +31,7 @@ The interface for the \ref expression struct.
 #include "parser.h"
 
 struct expression {
-	struct token operator; /**< Operator. */
+	struct token *operator; /**< Operator. */
 	struct expression* left; /**< Left expression. */
 	struct expression* right; /**< Right expression. */
 };
